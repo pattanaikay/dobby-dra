@@ -161,5 +161,3 @@ Additional dependencies and their licenses:
 - Requests - Apache 2.0 License
 
 ---
-
-*Built with ❤️ using Streamlit and LangChain*

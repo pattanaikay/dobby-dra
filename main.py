@@ -33,7 +33,7 @@ embeddings = OllamaEmbeddings(model="nomic-embed-text")  # Model for text embedd
 # -----------------------------
 # Streamlit User Interface
 # -----------------------------
-st.title("📚 Deep Research & Coding Agent")
+st.title("📚 Dobby: Deep Research & Coding Agent")
 
 # Initialize or load conversation history from session state
 if "history" not in st.session_state:
