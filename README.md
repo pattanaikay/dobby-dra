@@ -1,52 +1,75 @@
 # Dobby - Deep Research & Coding Assistant 🧙‍♂️
 
-Dobby is an intelligent research and coding assistant that helps solve programming problems using the powerful deepseek-coder-v2:16b model. Built with Streamlit and LangChain, it can analyze documents, code repositories, and web content to provide context-aware coding assistance.
+Dobby is an intelligent research and coding assistant powered by specialized agents for research paper analysis, code generation, technical writing, and data analysis. Built with Streamlit and LangChain, it leverages the powerful deepseek-coder-v2:16b model to provide comprehensive assistance across multiple domains.
 
 ## Features 📚
 
-- **Multi-Format Document Processing**
-  - PDF documents
-  - Text and Word documents (.txt, .docx)
-  - Source code files (.py, .js, .java, .ts, .cpp)
-  - Web content via URLs
-  - Entire code repositories
+- **Specialized Agents**
+  - Research Agents: Paper analysis, literature review, citation management
+  - Code Agents: Code generation, review, documentation
+  - Writing Agents: Report creation, technical documentation, summarization
+  - Data Analysis Agents: Data processing and visualization
 
-- **Dual Operation Modes**
-  - Chat Mode: Ask questions about your codebase and documents
-  - Code Editing Mode: Generate and modify code with context awareness
+- **Multi-Format Document Processing**
+  - PDF documents and research papers
+  - Text and Word documents (.txt, .docx)
+  - Source code files (.py, .js, .java, .ts, .cpp, etc.)
+  - Web content and URLs
+  - Complete code repositories
+
+- **Multiple Workspace Modes**
+  - Research Workspace: Literature analysis and paper review
+  - Code Workspace: Code generation and modification
+  - Writing Workspace: Documentation and report creation
+  - Data Analysis Workspace: Data processing tools
+  - Main Workspace: Integrated environment for all tasks
 
 - **Smart Context Management**
-  - Vector database storage for efficient retrieval
-  - Conversation history tracking
+  - Vector database storage with efficient retrieval
+  - Conversation history tracking per workspace
   - Persistent code change logging
+  - Intelligent context switching between workspaces
 
 ## Technical Stack 🛠️
 
 - **Core Components**
-  - [Streamlit](https://streamlit.io/) - Interactive UI
-  - [LangChain](https://www.langchain.com/) - LLM Framework
+  - [Streamlit](https://streamlit.io/) - Interactive multi-workspace UI
+  - [LangChain](https://www.langchain.com/) - LLM Framework & Agent System
   - [Ollama](https://ollama.ai/) - Local Model Integration
   - [Chroma DB](https://www.trychroma.com/) - Vector Storage
+  - [BeautifulSoup4](https://www.crummy.com/software/BeautifulSoup/) - Web Content Processing
+  - [PyPDF](https://pypi.org/project/pypdf/) - PDF Processing
+  - [DuckDuckGo-Search](https://pypi.org/project/duckduckgo-search/) - Web Search Integration
 
-- **Models**
-  - deepseek-coder-v2:16b - Main coding model
-  - nomic-embed-text - Text embeddings
+- **Models & Embeddings**
+  - deepseek-coder-v2:16b - Main language model for code and analysis
+  - nomic-embed-text - Text embeddings for semantic search
+  
+- **Agent Framework**
+  - Research Agents: PaperAnalysisAgent, LiteratureReviewAgent, CitationAgent
+  - Code Agents: CodeGenerationAgent, CodeReviewAgent, DocumentationAgent
+  - Writing Agents: ReportWritingAgent, TechnicalWritingAgent, SummaryAgent
 
 ## Project Structure 📁
 
 ```
 .
-├── main.py                 # Main Streamlit application
-├── agentutils.py          # Core agent functionality
+├── main.py                 # Main Streamlit application with workspace management
+├── agentutils.py          # Core agent functionality and utilities
 ├── requirements.txt       # Project dependencies
-├── utils/
-│   ├── dbutils.py        # Database operations
+├── agents/               # Specialized agent implementations
+│   ├── research_agents.py  # Research paper analysis agents
+│   ├── code_agents.py     # Code generation and review agents
+│   └── writing_agents.py  # Documentation and report agents
+├── utils/                # Utility modules
+│   ├── dbutils.py        # Vector database operations
 │   ├── fileutils.py      # File handling utilities
 │   ├── logutils.py       # Logging and history management
+│   ├── file_processing.py # File processing and analysis
 │   └── webutils.py       # Web content processing
 ├── research_db/          # Vector database storage
 ├── code_changes/         # Generated code modifications
-└── conversations.json    # Conversation history
+└── conversations.json    # Workspace-specific conversation history
 ```
 
 ## Installation 🚀
@@ -76,30 +99,62 @@ ollama pull nomic-embed-text
 streamlit run main.py
 \`\`\`
 
-2. Use the interface to:
-   - Upload documents (PDF, Doc, Code files)
-   - Add local code repositories
-   - Input URLs for web content analysis
-   - Toggle between Chat and Code Editing modes
-   - Ask questions or request code changes
+2. Choose your workspace:
+   - 🏠 Main Workspace: Integrated environment for all tasks
+   - 📑 Research Workspace: Paper analysis and literature review
+   - 💻 Code Workspace: Code generation and review
+   - ✍️ Writing Workspace: Documentation and report creation
+   - 📊 Data Workspace: Data analysis and visualization
+
+3. Use the interface features:
+   - Upload and analyze documents (PDF, Doc, Code files)
+   - Process local code repositories
+   - Analyze web content and research papers
+   - Interact with specialized agents
+   - Switch between different modes based on your task
 
 ## Features in Detail 🔍
 
+### Research Capabilities
+- Advanced paper analysis with key findings extraction
+- Literature review generation
+- Citation management in multiple formats
+- Research gap identification
+- Automatic paper summarization
+
+### Code Processing
+- Intelligent code generation and modification
+- Automated code review and quality assessment
+- Documentation generation (Google style, JSDoc, etc.)
+- Repository analysis and structure understanding
+- Security concern identification
+
+### Technical Writing
+- Report generation in multiple formats
+- Technical documentation creation
+- API documentation generation
+- Executive summary creation
+- Documentation formatting and style consistency
+
 ### Document Processing
-- PDF files are processed page by page
-- Code files are parsed with proper UTF-8 encoding
-- Web content is cleaned and extracted using BeautifulSoup
-- Repositories are recursively scanned for supported code files
+- PDF files processed with page-level granularity
+- Code files parsed with language-specific handling
+- Web content cleaned and structured using BeautifulSoup
+- Repositories scanned recursively with file type detection
+- Multi-format support for various document types
 
-### Vector Storage
-- Documents are chunked into 500-character segments with 50-character overlap
-- Efficient similarity search for relevant context retrieval
+### Vector Storage & Retrieval
+- Documents chunked into 500-character segments with 50-character overlap
+- Efficient similarity search using ChromaDB
 - Persistent storage for long-term knowledge retention
+- Semantic search capabilities using embeddings
 
-### Conversation Management
-- Complete conversation history tracking
+### Workspace Management
+- Independent conversation tracking per workspace
+- Context-aware responses based on workspace type
+- Seamless switching between workspaces
+- Persistent history across sessions
 - Timestamped code change logging
-- JSON-based persistent storage
 
 ## Contributing 🤝
 
