@@ -5,8 +5,8 @@ import os
 import tempfile
 from typing import List, Optional
 from pathlib import Path
-from langchain.schema import Document
-from langchain.document_loaders import (
+from langchain_core.documents import Document
+from langchain_community.document_loaders import (
     PyPDFLoader,
     TextLoader,
     UnstructuredWordDocumentLoader,

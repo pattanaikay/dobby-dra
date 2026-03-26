@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Intellectual Canvas - Research Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#b9c7df",
+              "primary": "#0453cd",
+              "surface-variant": "#e0e3e5",
+              "primary-fixed-dim": "#b2c5ff",
+              "tertiary": "#924628",
+              "secondary": "#515f74",
+              "tertiary-fixed-dim": "#ffb59a",
+              "surface-tint": "#0c56d0",
+              "on-surface-variant": "#3d4947",
+              "surface-dim": "#d8dadc",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed-variant": "#773215",
+              "on-background": "#191c1e",
+              "on-tertiary": "#ffffff",
+              "on-surface": "#191c1e",
+              "surface-bright": "#f7f9fb",
+              "inverse-surface": "#2d3133",
+              "on-tertiary-fixed": "#370e00",
+              "outline": "#6d7a77",
+              "on-secondary-container": "#57657a",
+              "on-primary-fixed-variant": "#0040a2",
+              "on-tertiary-container": "#fffbff",
+              "on-primary": "#ffffff",
+              "surface-container": "#eceef0",
+              "surface-container-low": "#f2f4f6",
+              "outline-variant": "#bcc9c6",
+              "secondary-container": "#d5e3fc",
+              "tertiary-fixed": "#ffdbce",
+              "tertiary-container": "#b05e3d",
+              "on-secondary-fixed": "#0d1c2e",
+              "on-primary-fixed": "#001848",
+              "error-container": "#ffdad6",
+              "on-primary-container": "#fefcff",
+              "on-secondary-fixed-variant": "#3a485b",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#d5e3fc",
+              "surface-container-highest": "#e0e3e5",
+              "surface": "#f7f9fb",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#dae2ff",
+              "surface-container-high": "#e6e8ea",
+              "inverse-primary": "#b2c5ff",
+              "primary-container": "#356ee7",
+              "inverse-on-surface": "#eff1f3",
+              "background": "#f7f9fb"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        vertical-align: middle;
+      }
+      .glass-effect {
+        backdrop-filter: blur(20px);
+        background: rgba(255, 255, 255, 0.8);
+      }
+      .ai-pulse {
+        background: linear-gradient(90deg, #dae2ff, #356ee7, #dae2ff);
+        background-size: 200% 100%;
+        animation: shimmer 2s infinite linear;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      body {
+        background-color: #f7f9fb;
+        color: #191c1e;
+      }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- SideNavBar Shell -->
+<aside class="bg-slate-50 dark:bg-slate-900 h-screen w-64 fixed left-0 top-0 border-r-0 flex flex-col h-full py-8 px-6 z-40">
+<div class="mb-10">
+<h1 class="text-xl font-bold tracking-tighter text-teal-700 dark:text-teal-400 font-headline">The Curator</h1>
+<p class="text-xs text-slate-500 font-medium">Deep Research Agent</p>
+</div>
+<button class="mb-8 w-full py-3 px-4 bg-primary text-on-primary rounded-xl font-headline font-bold text-sm transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="add_notes">add_notes</span>
+            Upload Document
+        </button>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="add_notes">add_notes</span>
+                New Research
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-teal-700 dark:text-teal-400 font-bold border-r-2 border-teal-600 dark:border-teal-400 bg-slate-200/50 transition-colors duration-200 font-manrope text-sm tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+                Library
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                History
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 font-manrope text-sm font-medium tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+                Collections
+            </a>
+</nav>
+<div class="pt-6 border-t border-slate-200/50 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-all font-manrope text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Help
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-100/10 shadow-sm shadow-slate-200/50 dark:shadow-none flex justify-between items-center h-16 px-8">
+<span class="text-lg font-extrabold text-teal-700 dark:text-teal-400 font-headline">The Intellectual Canvas</span>
+<div class="flex items-center gap-6">
+<div class="relative">
+<input class="bg-surface-container-low border-none rounded-full py-2 px-10 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all font-body" placeholder="Search research..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg" data-icon="search">search</span>
+</div>
+<div class="flex items-center gap-4 text-slate-500">
+<button class="hover:text-teal-500 transition-all flex items-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-teal-500 transition-all flex items-center">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<section class="pt-24 px-16 pb-16 max-w-[1400px] mx-auto">
+<!-- Hero Heading Section -->
+<div class="mb-16">
+<h2 class="font-headline font-extrabold text-5xl tracking-tighter text-on-surface mb-4">Research Library</h2>
+<p class="font-body text-secondary text-lg max-w-2xl leading-relaxed">Your digital repository for synthesized insights, deep dives, and architectural knowledge projects.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Main Featured Project (Large) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-10 group relative overflow-hidden transition-all duration-300 hover:ring-1 hover:ring-outline-variant/20">
+<div class="flex justify-between items-start mb-12">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold tracking-wider font-headline">ACTIVE AGENT</span>
+<div class="h-1 w-24 ai-pulse rounded-full"></div>
+</div>
+<h3 class="font-headline font-bold text-3xl text-on-surface mb-4">The Architecture of Quantum Biology</h3>
+<p class="font-body text-secondary text-base leading-relaxed max-w-xl">Investigating how non-trivial quantum effects like coherence and tunneling influence photosynthetic energy transfer and olfactory sensing.</p>
+</div>
+<span class="material-symbols-outlined text-slate-300 text-4xl group-hover:text-primary transition-colors" data-icon="science">science</span>
+</div>
+<div class="flex items-center justify-between border-t border-slate-50 pt-8">
+<div class="flex -space-x-3">
+<img alt="Contributor" class="w-10 h-10 rounded-full border-2 border-white" data-alt="close-up portrait of a professional woman with a minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtyMt4_nNYT8ljn8xnCi_935Ds-RsB5uU21TZjbthsdEHlzk0ehuI_8OBSCRreq7L6xWo-4TWMILKbKqjz_0OI-Mm3IZ8kgq4D_805UEfj_GqOE54e96pAF4MAc9KJ6aC3G6C-V9pLT7_GsoMOncjDVW_9AaTbYGPscwGsrxeiDW36-STzvShH2Ul82bmZVgz_dqoE4ZmFJndcfI-MEQyEH7EWaAOmz5ZH-P3oX2Ag5_UDu5gZC2Pq3mzHfZUJkXOpGSkQbhvmD8xj"/>
+<img alt="Contributor" class="w-10 h-10 rounded-full border-2 border-white" data-alt="close-up portrait of a professional man with a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK7zfpvZww2RWMEDTG3IqDxOY_yk4nmD3TZ9C8sW_XOL9NX0J4FsaL24ef6_R_K08mcFeRuoeuCrbkMeSxtE4SspEXD9UxPEEpB6k-SI6FoySdonRL9uDuRzPB2U-Z6pB6XrNcTOoH3YFTrmT6SXFa2m6DjZUZZcB1IDv1ryRXYvEZmgPeFcUMfqy739mmFPrZTwo_DtZiErXZp2dbiUApJ4P1zmMeH8nKkJzoIWC5jMzWAxJHSiP6XaQkcbR7_Fnj_060IvEiWavr"/>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-white flex items-center justify-center text-[10px] font-bold">+4</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-sm font-label text-secondary flex items-center gap-1"><span class="material-symbols-outlined text-sm" data-icon="history">history</span> Updated 2h ago</span>
+<span class="text-primary font-bold text-sm cursor-pointer hover:underline underline-offset-4">Open Project</span>
+</div>
+</div>
+</div>
+<!-- Secondary Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-low rounded-xl p-8 transition-all hover:bg-surface-container-high border-none">
+<div class="bg-surface-container-lowest w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h4 class="font-headline font-bold text-xl text-on-surface mb-3">Urban Sprawl &amp; Microbiomes</h4>
+<p class="font-body text-sm text-secondary leading-relaxed mb-8">Analyzing the correlation between city density and soil microbial diversity across major global metropolises.</p>
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-tertiary px-2 py-1 bg-tertiary-fixed rounded">Ready</span>
+<span class="material-symbols-outlined text-secondary hover:text-primary cursor-pointer" data-icon="more_horiz">more_horiz</span>
+</div>
+</div>
+<!-- Horizontal Summary Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-xl p-8 transition-all hover:ring-1 hover:ring-outline-variant/20">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-2 h-2 rounded-full bg-primary ai-pulse"></div>
+<span class="text-[10px] font-bold tracking-widest text-secondary uppercase">RESEARCHING...</span>
+</div>
+<h4 class="font-headline font-bold text-lg text-on-surface mb-2">Medieval Financial Instruments</h4>
+<p class="font-body text-sm text-secondary line-clamp-2">Exploring the evolution of the bill of exchange during the 13th-century commercial revolution.</p>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-xl p-8 transition-all hover:ring-1 hover:ring-outline-variant/20">
+<div class="flex items-center gap-4 mb-4">
+<span class="text-[10px] font-bold tracking-widest text-secondary uppercase">READY</span>
+</div>
+<h4 class="font-headline font-bold text-lg text-on-surface mb-2">Deep Sea Mineral Policy</h4>
+<p class="font-body text-sm text-secondary line-clamp-2">Summary of the International Seabed Authority's latest regulatory framework proposals.</p>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-xl p-8 transition-all hover:ring-1 hover:ring-outline-variant/20">
+<div class="flex items-center gap-4 mb-4">
+<span class="text-[10px] font-bold tracking-widest text-secondary uppercase">READY</span>
+</div>
+<h4 class="font-headline font-bold text-lg text-on-surface mb-2">Aesthetic Neural Processing</h4>
+<p class="font-body text-sm text-secondary line-clamp-2">Recent findings in neuroaesthetics regarding symmetry and the human reward system.</p>
+</div>
+</div>
+<!-- Suggested Deep Dives Section -->
+<div class="mt-24">
+<div class="flex items-end justify-between mb-10">
+<div>
+<h3 class="font-headline font-extrabold text-3xl tracking-tight mb-2">Suggested Deep Dives</h3>
+<p class="font-body text-secondary">Serendipitous directions for your next research session.</p>
+</div>
+<button class="text-primary font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
+                        Refresh Suggestions <span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Dive 1 -->
+<div class="relative group h-64 rounded-xl overflow-hidden cursor-pointer">
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="abstract digital visualization of planetary data with soft neon blue and violet lights in space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG8oEOHA9Bz6V1NgLwDLMtODUnF-5gX8ipHOyMmvZxip6c8_qV-LZHqbY9TdSNXHtWVpyWFJZ06VpLt1xbOqeA2sgEY1HLaO1rEiMPDc7gbgZYzavDVjcu6zwf9o4sg4kxJr-rsKBPIRsb8F4ZQO1G4Hn08xD_uACpm74XeHvWjqqXKwqaZIF3H-EDIhD5ECaeuz3eXTjFXaBXP_1y3xydUJSO_Jc80Kn_NAANHowYUP-_E0Nhp9-bouBix3bawd62SeGiwmfLQRoe"/>
+<div class="absolute bottom-6 left-6 right-6 z-20">
+<span class="text-[10px] font-bold text-white/80 bg-white/10 backdrop-blur-md px-2 py-1 rounded mb-3 inline-block">ASTROPHYSICS</span>
+<h5 class="text-white font-headline font-bold text-xl leading-tight">The Paradox of Hawking Radiation</h5>
+</div>
+</div>
+<!-- Dive 2 -->
+<div class="relative group h-64 rounded-xl overflow-hidden cursor-pointer">
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="macro view of crystalline patterns and geometric mineral structures with soft daylight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVZe9drTHCfjZp1M3XNSKUwQA0u8TwKhlId5FBhD_Mt_CyWEBvzsAquOFIs3nUvlMJBi5bU6X7oCRkgBtxZLt8tEF-fvUjfwGGDL612sA8W6ya4NC9BlgNeu6meYBZd6-Z5VYx7XaIqd_LJcEcc5zmUfFJ7dEpKN16_8OiuE0jXf8mwTT9nd51UHIhm5J00EZVpJZJeFMBFWm_yJten3difXFxCEi3TSBhFrfq_kU4zBszu9FNpjyWFDqFsF2RyC9pnjN4mt73kjmN"/>
+<div class="absolute bottom-6 left-6 right-6 z-20">
+<span class="text-[10px] font-bold text-white/80 bg-white/10 backdrop-blur-md px-2 py-1 rounded mb-3 inline-block">MATERIALS</span>
+<h5 class="text-white font-headline font-bold text-xl leading-tight">Non-Euclidean Crystal Lattices</h5>
+</div>
+</div>
+<!-- Dive 3 -->
+<div class="relative group h-64 rounded-xl overflow-hidden cursor-pointer">
+<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all z-10"></div>
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="atmospheric library with warm lamp lighting and tall shelves filled with old leather bound books" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO4mTTspXtFAr6Ma5LBJ8t76wCYr5Bs2Ev2CWfme0DYE-c7M-wBKWOTFIgo9D1wR0OywUXb3muyIwaN6s09jaZYE6yy8XcAraHDS6HsVXHIASyTYgzOM4eo4boQ3dLu-7LnBafOMeBrI6_hTgRyOvhV70J00VTRYa_HLC_SmLg2-e8I--ZxzEg8VXo0yPNeKwtqgwl03SeOyFFKSJ41U9DH4jdpwNt8rI3KjV0SR_oY3b_JzCwb3rv9M6qEGFtaMj4jDNUveR8-UZ8"/>
+<div class="absolute bottom-6 left-6 right-6 z-20">
+<span class="text-[10px] font-bold text-white/80 bg-white/10 backdrop-blur-md px-2 py-1 rounded mb-3 inline-block">PHILOSOPHY</span>
+<h5 class="text-white font-headline font-bold text-xl leading-tight">Stoic Epistemology in Modern AI</h5>
+</div>
+</div>
+</div>
+</div>
+<!-- Recently Saved (Minimalist List) -->
+<div class="mt-24 mb-16">
+<h3 class="font-headline font-extrabold text-2xl tracking-tight mb-8">Recently Saved Documents</h3>
+<div class="space-y-1">
+<div class="flex items-center justify-between py-4 px-6 hover:bg-surface-container-low rounded-xl transition-colors cursor-pointer group">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="description">description</span>
+<div>
+<h6 class="font-headline font-bold text-on-surface">The 2024 Global Energy Transition Report</h6>
+<p class="text-xs text-secondary font-label">PDF • 14.2 MB • Saved 1d ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-primary text-sm font-bold">Read</button>
+<button class="material-symbols-outlined text-slate-400" data-icon="bookmark">bookmark</button>
+</div>
+</div>
+<div class="flex items-center justify-between py-4 px-6 hover:bg-surface-container-low rounded-xl transition-colors cursor-pointer group">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="link">link</span>
+<div>
+<h6 class="font-headline font-bold text-on-surface">Ethics of Large Language Models (Nature)</h6>
+<p class="text-xs text-secondary font-label">Web Article • Saved 3d ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-primary text-sm font-bold">Read</button>
+<button class="material-symbols-outlined text-slate-400" data-icon="bookmark">bookmark</button>
+</div>
+</div>
+<div class="flex items-center justify-between py-4 px-6 hover:bg-surface-container-low rounded-xl transition-colors cursor-pointer group">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-primary transition-colors" data-icon="movie">movie</span>
+<div>
+<h6 class="font-headline font-bold text-on-surface">Symposium: The Future of Quantum Computing</h6>
+<p class="text-xs text-secondary font-label">Video Transcript • Saved 5d ago</p>
+</div>
+</div>
+<div class="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-primary text-sm font-bold">Read</button>
+<button class="material-symbols-outlined text-slate-400" data-icon="bookmark">bookmark</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Contextual FAB (Only on main dashboard) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50">
+<span class="material-symbols-outlined text-2xl" data-icon="smart_toy">smart_toy</span>
+</button>
+</body></html>

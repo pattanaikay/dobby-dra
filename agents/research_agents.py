@@ -4,11 +4,25 @@ Research-focused agents for academic paper analysis and literature review.
 
 from typing import List, Dict
 from langchain_ollama import ChatOllama
-from langchain.schema import Document
+from langchain_core.documents import Document
 
 class PaperAnalysisAgent:
     def __init__(self, llm: ChatOllama):
         self.llm = llm
+
+    def _extract_title(self, paper: Document) -> str:
+        """Extract the title from the paper."""
+        # Simple heuristic: first non-empty line of the document
+        content = paper.page_content if isinstance(paper, Document) else paper.get("query", "")
+        lines = content.strip().split("\n")
+        return next((line.strip() for line in lines if line.strip()), "Untitled")
+
+    def _extract_abstract(self, paper: Document) -> str:
+        """Extract the abstract from the paper."""
+        content = paper.page_content if isinstance(paper, Document) else paper.get("query", "")
+        # For now, return the first paragraph or the query itself
+        paragraphs = content.split("\n\n")
+        return paragraphs[0] if paragraphs else ""
 
     async def analyze_paper(self, paper: Document) -> Dict:
         """Analyze a single research paper."""

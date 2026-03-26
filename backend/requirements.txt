@@ -1,0 +1,38 @@
+# Synthetica Research — Backend Dependencies
+# ============================================
+
+# Web Framework
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6
+sse-starlette>=1.8.0
+
+# LangChain Stack
+langchain>=0.1.0
+langchain-core>=0.1.0
+langchain-community>=0.1.0
+langchain-ollama>=0.1.0
+langchain-chroma>=0.1.0
+langchain-text-splitters>=0.1.0
+
+# Vector DB & Search
+chromadb>=0.4.0
+duckduckgo-search>=4.0
+
+# Document Processing
+pypdf>=3.17.0
+bs4>=0.0.2
+
+# Data & Validation
+pydantic>=2.5.0
+typing-extensions>=4.8.0
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Academic Sources
+arxiv>=2.0.0
+scholarly>=1.7.0
+openreview-py>=1.20.0
+
+# Config
+python-dotenv>=1.0.0

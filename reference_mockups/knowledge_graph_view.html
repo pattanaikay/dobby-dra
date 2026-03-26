@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Intellectual Canvas - Knowledge Graph</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+        
+        .graph-line {
+            stroke: #bcc9c6;
+            stroke-width: 1;
+            opacity: 0.4;
+        }
+        .node-active {
+            box-shadow: 0 0 0 4px rgba(4, 83, 205, 0.1);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-primary-container": "#fefcff",
+                "on-error": "#ffffff",
+                "surface-container-low": "#f2f4f6",
+                "tertiary": "#924628",
+                "secondary": "#515f74",
+                "on-tertiary-fixed": "#370e00",
+                "error-container": "#ffdad6",
+                "surface-variant": "#e0e3e5",
+                "on-secondary-fixed": "#0d1c2e",
+                "surface-dim": "#d8dadc",
+                "surface-container-highest": "#e0e3e5",
+                "on-secondary-container": "#57657a",
+                "surface-container-high": "#e6e8ea",
+                "secondary-container": "#d5e3fc",
+                "surface-bright": "#f7f9fb",
+                "on-primary": "#ffffff",
+                "tertiary-fixed": "#ffdbce",
+                "on-error-container": "#93000a",
+                "on-background": "#191c1e",
+                "background": "#f7f9fb",
+                "surface": "#f7f9fb",
+                "primary-fixed-dim": "#b2c5ff",
+                "on-secondary-fixed-variant": "#3a485b",
+                "on-secondary": "#ffffff",
+                "on-tertiary-fixed-variant": "#773215",
+                "surface-container": "#eceef0",
+                "primary-container": "#356ee7",
+                "on-primary-fixed-variant": "#0040a2",
+                "on-surface-variant": "#3d4947",
+                "inverse-surface": "#2d3133",
+                "tertiary-fixed-dim": "#ffb59a",
+                "on-primary-fixed": "#001848",
+                "primary": "#0453cd",
+                "outline-variant": "#bcc9c6",
+                "inverse-on-surface": "#eff1f3",
+                "secondary-fixed": "#d5e3fc",
+                "on-tertiary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "surface-tint": "#0c56d0",
+                "primary-fixed": "#dae2ff",
+                "inverse-primary": "#b2c5ff",
+                "outline": "#6d7a77",
+                "on-tertiary-container": "#fffbff",
+                "secondary-fixed-dim": "#b9c7df",
+                "on-surface": "#191c1e",
+                "tertiary-container": "#b05e3d",
+                "error": "#ba1a1a"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary/20">
+<!-- SideNavBar (Shared Component Logic) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r-0 bg-slate-50 flex flex-col py-8 px-6 z-[60] font-manrope text-sm font-medium tracking-tight">
+<div class="mb-12">
+<h1 class="text-xl font-bold tracking-tighter text-teal-700">The Curator</h1>
+<p class="text-xs text-slate-500 font-normal">Deep Research Agent</p>
+</div>
+<nav class="flex-1 space-y-2">
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-200/50 transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="add_notes">add_notes</span>
+<span>New Research</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-teal-700 font-bold border-r-2 border-teal-600 bg-slate-200/50 transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span>Library</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-200/50 transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>History</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-slate-500 hover:bg-slate-200/50 transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span>Collections</span>
+</button>
+</nav>
+<div class="mt-auto space-y-4">
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-bold text-xs tracking-wider uppercase flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="upload">upload</span>
+                Upload Document
+            </button>
+<div class="pt-4 border-t border-slate-200 space-y-1">
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:text-slate-900 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:text-slate-900 transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span>
+<span>Help</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component Logic) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-50 bg-white/80 backdrop-blur-xl flex justify-between items-center h-16 px-8 border-b border-slate-100/10">
+<div class="flex items-center gap-4">
+<span class="text-lg font-extrabold text-teal-700 font-headline">The Intellectual Canvas</span>
+<div class="h-4 w-[1px] bg-slate-200"></div>
+<span class="text-xs font-medium text-slate-400 uppercase tracking-widest">Knowledge Graph</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-slate-400 text-xl" data-icon="search">search</span>
+</div>
+<input class="bg-surface-container-low border-none rounded-full py-2 pl-12 pr-6 text-sm w-64 focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Add Node to Graph..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-slate-500 hover:text-teal-600 transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden">
+<img alt="User Profile" data-alt="professional minimalist portrait of a researcher with a neutral expression in high-key studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJaemcZ5TdqJ0rZtPnCjfNdWnklqzM38ox2LR8dcY62AmyZR0FGB758u9jbWKvFh4vEy4VBpU-C7HRXFIsFN4_ACmiXR2ydeF4k1eB7whyI0AWNoh4AhlCPnGUshsHiPE1ipYzzy8GGCTVwE3xC2oBYvd0f_BWVcH8QDQpGDL7dkxtq7bN3Vg8Pkdwu3yxW0UIrBm38kwdwRfal4CDWFayHJmP1UwrRjVM6Mkp6BQqExLXPgB-WEBiN7xwXUbwZkRgUglHS7dkciVg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 h-screen relative overflow-hidden bg-surface">
+<!-- Knowledge Graph Representation (Asymmetric Canvas) -->
+<div class="absolute inset-0 z-0">
+<!-- Simulated Graph Lines (SVG) -->
+<svg class="w-full h-full">
+<!-- Center to Trojans -->
+<line class="graph-line" x1="55%" x2="40%" y1="50%" y2="35%"></line>
+<!-- Center to Sparta -->
+<line class="graph-line" x1="55%" x2="70%" y1="50%" y2="65%"></line>
+<!-- Center to Mythology -->
+<line class="graph-line" x1="55%" x2="75%" y1="50%" y2="30%"></line>
+<!-- Mythology connections -->
+<line class="graph-line" x1="75%" x2="85%" y1="30%" y2="20%"></line>
+</svg>
+<!-- Nodes -->
+<!-- Central Node: Helen of Troy -->
+<div class="absolute top-[50%] left-[55%] -translate-x-1/2 -translate-y-1/2 z-20">
+<div class="p-6 bg-surface-container-lowest rounded-full shadow-lg border-2 border-primary flex flex-col items-center justify-center text-center w-48 h-48 group cursor-pointer transition-transform hover:scale-105">
+<span class="text-xs font-bold text-primary tracking-tighter mb-1">CENTRAL FOCUS</span>
+<h3 class="text-lg font-bold font-headline leading-tight">Helen of Troy</h3>
+<div class="mt-2 w-8 h-1 bg-primary rounded-full"></div>
+</div>
+</div>
+<!-- Connection: The Trojan War -->
+<div class="absolute top-[35%] left-[40%] -translate-x-1/2 -translate-y-1/2 z-10">
+<div class="px-5 py-3 bg-white rounded-xl shadow-sm hover:shadow-md border border-slate-100 flex items-center gap-3 cursor-pointer transition-all">
+<div class="w-2 h-2 rounded-full bg-teal-500"></div>
+<span class="text-sm font-medium">The Trojan War</span>
+</div>
+</div>
+<!-- Connection: Spartan Society -->
+<div class="absolute top-[65%] left-[70%] -translate-x-1/2 -translate-y-1/2 z-10">
+<div class="px-5 py-3 bg-white rounded-xl shadow-sm hover:shadow-md border border-slate-100 flex items-center gap-3 cursor-pointer transition-all">
+<div class="w-2 h-2 rounded-full bg-teal-500"></div>
+<span class="text-sm font-medium">Spartan Society</span>
+</div>
+</div>
+<!-- Connection: Ancient Greek Mythology -->
+<div class="absolute top-[30%] left-[75%] -translate-x-1/2 -translate-y-1/2 z-10">
+<div class="px-5 py-3 bg-white rounded-xl shadow-sm hover:shadow-md border border-slate-100 flex items-center gap-3 cursor-pointer transition-all">
+<div class="w-2 h-2 rounded-full bg-teal-500"></div>
+<span class="text-sm font-medium">Greek Mythology</span>
+</div>
+</div>
+<!-- Secondary Connection -->
+<div class="absolute top-[20%] left-[85%] -translate-x-1/2 -translate-y-1/2 z-0 opacity-60">
+<div class="px-4 py-2 bg-surface-container-low rounded-lg border border-slate-200 flex items-center gap-2 cursor-pointer transition-all">
+<span class="text-xs font-medium text-slate-500">Homers Iliad</span>
+</div>
+</div>
+</div>
+<!-- Floating Controls Menu -->
+<div class="absolute bottom-10 left-10 z-40 flex flex-col gap-3">
+<div class="glass-panel p-1.5 rounded-full shadow-xl border border-white/50 flex flex-col items-center">
+<button class="p-3 text-slate-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span>
+</button>
+<div class="h-[1px] w-4 bg-slate-200"></div>
+<button class="p-3 text-slate-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="zoom_out">zoom_out</span>
+</button>
+</div>
+<button class="glass-panel p-3.5 rounded-full shadow-xl border border-white/50 text-slate-600 hover:text-primary transition-colors group">
+<span class="material-symbols-outlined" data-icon="filter_center_focus">filter_center_focus</span>
+<span class="absolute left-full ml-4 px-3 py-1 bg-on-background text-white text-[10px] rounded opacity-0 group-hover:opacity-100 whitespace-nowrap pointer-events-none transition-opacity">Center Graph</span>
+</button>
+<button class="glass-panel px-5 py-3 rounded-full shadow-xl border border-white/50 text-slate-700 font-medium text-xs flex items-center gap-2 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="account_tree">account_tree</span>
+                Layout: Force-Directed
+            </button>
+</div>
+<!-- Right Side Panel: Node Details -->
+<aside class="absolute top-8 right-8 bottom-8 w-80 glass-panel rounded-3xl shadow-2xl border border-white/40 flex flex-col overflow-hidden z-40">
+<div class="p-6 pb-0">
+<div class="flex items-center justify-between mb-6">
+<span class="px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-[10px] font-bold tracking-widest uppercase">Entity Profile</span>
+<button class="text-slate-400 hover:text-slate-900 transition-all">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<h2 class="text-2xl font-extrabold font-headline text-on-background leading-tight mb-2">Helen of Troy</h2>
+<p class="text-sm text-slate-500 font-medium leading-relaxed mb-6">In Greek mythology, said to have been the most beautiful woman in the world.</p>
+</div>
+<div class="flex-1 overflow-y-auto px-6 space-y-8 pb-8">
+<!-- Historical Snippets -->
+<section>
+<h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="history_edu">history_edu</span>
+                        Historical Context
+                    </h4>
+<div class="space-y-4">
+<div class="p-4 bg-white/50 rounded-2xl border border-slate-100 hover:bg-white transition-all">
+<p class="text-xs text-on-surface leading-relaxed italic">"The face that launched a thousand ships and burnt the topless towers of Ilium."</p>
+<span class="block mt-2 text-[10px] font-bold text-slate-400">— Christopher Marlowe</span>
+</div>
+<div class="p-4 bg-white/50 rounded-2xl border border-slate-100 hover:bg-white transition-all">
+<p class="text-xs text-on-surface leading-relaxed">Daughter of Zeus and Leda, and wife of Menelaus, King of Sparta. Her abduction by Paris brought about the Trojan War.</p>
+</div>
+</div>
+</section>
+<!-- Linked Sources -->
+<section>
+<h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Referenced Collections</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-primary-container group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="article">article</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Homers Iliad (Analysis)</p>
+<p class="text-[10px] text-slate-400">PDF • 12.4 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-3 group cursor-pointer">
+<div class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-primary-container group-hover:text-white transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="video_library">video_library</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">Archaeology of Mycenae</p>
+<p class="text-[10px] text-slate-400">Media • 4:12</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Button -->
+<div class="pt-4">
+<button class="w-full bg-on-background text-white py-3 rounded-2xl font-bold text-xs flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="edit_note">edit_note</span>
+                        Open Research Workspace
+                    </button>
+</div>
+</div>
+</aside>
+<!-- Asymmetric Background Elements -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 -right-48 w-[600px] h-[600px] bg-teal-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+</main>
+</body></html>

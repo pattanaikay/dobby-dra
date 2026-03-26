@@ -6,8 +6,8 @@ It provides functions for storing and retrieving documents using
 vector embeddings for semantic similarity search.
 """
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
 
 def save_to_db(docs: list, embeddings, persist_dir: str):
     """

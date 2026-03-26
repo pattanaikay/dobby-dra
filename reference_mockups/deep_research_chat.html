@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Intellectual Canvas | Research Agent</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;500;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#b9c7df",
+              "primary": "#0453cd",
+              "surface-variant": "#e0e3e5",
+              "primary-fixed-dim": "#b2c5ff",
+              "tertiary": "#924628",
+              "secondary": "#515f74",
+              "tertiary-fixed-dim": "#ffb59a",
+              "surface-tint": "#0c56d0",
+              "on-surface-variant": "#3d4947",
+              "surface-dim": "#d8dadc",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed-variant": "#773215",
+              "on-background": "#191c1e",
+              "on-tertiary": "#ffffff",
+              "on-surface": "#191c1e",
+              "surface-bright": "#f7f9fb",
+              "inverse-surface": "#2d3133",
+              "on-tertiary-fixed": "#370e00",
+              "outline": "#6d7a77",
+              "on-secondary-container": "#57657a",
+              "on-primary-fixed-variant": "#0040a2",
+              "on-tertiary-container": "#fffbff",
+              "on-primary": "#ffffff",
+              "surface-container": "#eceef0",
+              "surface-container-low": "#f2f4f6",
+              "outline-variant": "#bcc9c6",
+              "secondary-container": "#d5e3fc",
+              "tertiary-fixed": "#ffdbce",
+              "tertiary-container": "#b05e3d",
+              "on-secondary-fixed": "#0d1c2e",
+              "on-primary-fixed": "#001848",
+              "error-container": "#ffdad6",
+              "on-primary-container": "#fefcff",
+              "on-secondary-fixed-variant": "#3a485b",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#d5e3fc",
+              "surface-container-highest": "#e0e3e5",
+              "surface": "#f7f9fb",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#dae2ff",
+              "surface-container-high": "#e6e8ea",
+              "inverse-primary": "#b2c5ff",
+              "primary-container": "#356ee7",
+              "inverse-on-surface": "#eff1f3",
+              "background": "#f7f9fb"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased scrollbar-hide">
+<!-- Sidebar Navigation -->
+<aside class="bg-slate-50 dark:bg-slate-900 h-screen w-64 fixed left-0 top-0 border-r-0 flex flex-col h-full py-8 px-6 z-50">
+<div class="mb-10">
+<h1 class="text-xl font-bold tracking-tighter text-teal-700 dark:text-teal-400 font-headline">The Curator</h1>
+<p class="font-manrope text-sm font-medium tracking-tight text-slate-500">Deep Research Agent</p>
+</div>
+<button class="mb-8 w-full bg-primary text-on-primary py-3 px-4 rounded-xl font-headline font-bold text-sm transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]" data-icon="add_notes">add_notes</span>
+            Upload Document
+        </button>
+<nav class="flex-1 space-y-1">
+<div class="text-teal-700 dark:text-teal-400 font-bold border-r-2 border-teal-600 dark:border-teal-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 flex items-center gap-3 px-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="add_notes">add_notes</span>
+<span class="font-manrope text-sm font-medium tracking-tight">New Research</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 flex items-center gap-3 px-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Library</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 flex items-center gap-3 px-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-manrope text-sm font-medium tracking-tight">History</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 flex items-center gap-3 px-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Collections</span>
+</div>
+</nav>
+<div class="mt-auto space-y-1 pt-6 border-t border-slate-200 dark:border-slate-800">
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 flex items-center gap-3 px-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Settings</span>
+</div>
+<div class="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200 flex items-center gap-3 px-3 py-2 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-manrope text-sm font-medium tracking-tight">Help</span>
+</div>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl flex justify-between items-center h-16 px-8 shadow-sm shadow-slate-200/50 dark:shadow-none">
+<div class="flex items-center gap-4">
+<span class="text-lg font-extrabold text-teal-700 dark:text-teal-400 font-headline">The Intellectual Canvas</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative flex items-center group">
+<span class="material-symbols-outlined absolute left-3 text-slate-400" data-icon="search">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-1.5 pl-10 pr-4 text-sm w-64 focus:ring-1 focus:ring-primary-container transition-all" placeholder="Search insights..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-slate-500">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen flex flex-col items-center">
+<!-- AI Progress Indicator (Pulsing Gradient) -->
+<div class="w-full h-1 bg-gradient-to-r from-primary-fixed to-primary-container animate-pulse opacity-20"></div>
+<div class="max-w-4xl w-full px-8 py-16 flex flex-col flex-1">
+<!-- Message Thread -->
+<section class="space-y-12 mb-24">
+<!-- User Message -->
+<div class="flex flex-col items-end gap-3">
+<div class="bg-surface-container-lowest p-6 rounded-xl max-w-2xl text-on-surface shadow-sm border border-slate-100/10">
+<p class="font-body text-[0.9375rem] leading-relaxed">
+                            Could you analyze the socio-economic impact of the transition to renewable energy in Northern European coastal communities? I'm particularly interested in the shifts in local labor markets and the role of government subsidies.
+                        </p>
+</div>
+<span class="text-[0.65rem] font-bold uppercase tracking-widest text-secondary opacity-50 px-2">User • 10:24 AM</span>
+</div>
+<!-- AI Message -->
+<div class="flex flex-col items-start gap-4">
+<div class="flex gap-4 items-start w-full">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 mt-1">
+<span class="material-symbols-outlined text-white text-[18px]" data-icon="bolt">bolt</span>
+</div>
+<div class="space-y-6 flex-1">
+<div class="prose prose-slate max-w-none">
+<h3 class="font-headline text-xl font-bold text-on-surface mb-4">Renewable Transition: Northern Coastal Dynamics</h3>
+<p class="font-body text-on-surface-variant leading-relaxed mb-6">
+                                    The transition in Northern European coastal communities—specifically within the Nordics and parts of the UK—represents a "Blue-to-Green" industrial pivot. Preliminary analysis reveals three key vectors of change:
+                                </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<div class="bg-surface-container-low p-5 rounded-xl">
+<h4 class="font-headline text-sm font-bold text-teal-700 mb-2">Labor Market Displacement</h4>
+<p class="text-xs text-secondary leading-relaxed">High-skill offshore oil technicians are successfully migrating to wind turbine maintenance, though entry-level roles face higher attrition due to automation.</p>
+</div>
+<div class="bg-surface-container-low p-5 rounded-xl">
+<h4 class="font-headline text-sm font-bold text-teal-700 mb-2">Subsidy Efficiency</h4>
+<p class="text-xs text-secondary leading-relaxed">Regional grants focused on "Grid Integration" have yielded 14% higher long-term ROI than direct infrastructure subsidies in the Øresund region.</p>
+</div>
+</div>
+<p class="font-body text-on-surface-variant leading-relaxed">
+                                    Would you like to explore the specific data on <span class="text-primary font-medium cursor-pointer underline underline-offset-4">Esbjerg’s workforce evolution</span> or should we pivot to the <span class="text-primary font-medium cursor-pointer underline underline-offset-4">Scottish Highlands aquaculture interface</span>?
+                                </p>
+</div>
+<!-- Deep Dive CTA -->
+<div class="pt-4">
+<button class="group flex items-center gap-3 bg-surface-container-highest hover:bg-primary hover:text-on-primary text-on-surface px-6 py-4 rounded-full transition-all duration-300">
+<span class="material-symbols-outlined group-hover:rotate-45 transition-transform" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-headline font-bold text-sm">Deep Dive: Generate Structural Model</span>
+</button>
+</div>
+</div>
+</div>
+<span class="text-[0.65rem] font-bold uppercase tracking-widest text-secondary opacity-50 px-14">Curator • 10:25 AM</span>
+</div>
+<!-- New Prompt State / Empty Canvas Space -->
+<div class="py-12 border-t border-slate-100/50 flex flex-col items-center">
+<p class="text-secondary/40 font-headline text-xs tracking-widest uppercase mb-8">Continuing Research Thread</p>
+</div>
+</section>
+</div>
+<!-- Floating Action Area (Bottom Fixed) -->
+<div class="fixed bottom-0 right-0 w-[calc(100%-16rem)] p-8 pointer-events-none">
+<div class="max-w-3xl mx-auto w-full pointer-events-auto">
+<div class="relative">
+<!-- The Research Bar -->
+<div class="bg-surface-container-lowest shadow-2xl shadow-slate-200/50 rounded-2xl flex items-center px-6 py-4 gap-4 ring-1 ring-slate-100 transition-all focus-within:ring-primary/20">
+<span class="material-symbols-outlined text-slate-400" data-icon="attachment">attachment</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-slate-400 font-body text-[0.9375rem]" placeholder="Synthesize new findings or ask a question..." type="text"/>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_upward">arrow_upward</span>
+</button>
+</div>
+<!-- Suggestions Chips -->
+<div class="flex gap-2 mt-4 overflow-x-auto scrollbar-hide pb-2">
+<span class="bg-surface-container-low px-4 py-1.5 rounded-full text-xs font-medium text-secondary hover:bg-surface-container-high cursor-pointer transition-colors whitespace-nowrap">Compare with Baltic data</span>
+<span class="bg-surface-container-low px-4 py-1.5 rounded-full text-xs font-medium text-secondary hover:bg-surface-container-high cursor-pointer transition-colors whitespace-nowrap">Export citations (APA)</span>
+<span class="bg-surface-container-low px-4 py-1.5 rounded-full text-xs font-medium text-secondary hover:bg-surface-container-high cursor-pointer transition-colors whitespace-nowrap">Generate trend chart</span>
+<span class="bg-surface-container-low px-4 py-1.5 rounded-full text-xs font-medium text-secondary hover:bg-surface-container-high cursor-pointer transition-colors whitespace-nowrap">Search JSTOR</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual Insight Panel (Asymmetric Placement) -->
+<aside class="fixed top-24 right-8 w-64 hidden xl:block space-y-8">
+<div class="bg-surface-container-low p-6 rounded-2xl border border-white/50">
+<h5 class="font-headline text-[10px] uppercase tracking-widest text-secondary mb-4">Live Context</h5>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-on-surface">Primary Sources</span>
+<span class="text-[11px] text-secondary">IEA World Energy Outlook 2023</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-bold text-on-surface">Confidence Score</span>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[92%] h-full bg-teal-500"></div>
+</div>
+<span class="text-[10px] text-teal-600 font-bold self-end">92%</span>
+</div>
+</div>
+</div>
+<div class="relative overflow-hidden rounded-2xl aspect-[3/4] group cursor-pointer shadow-lg">
+<img alt="Renewable energy" class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" data-alt="Modern offshore wind turbines rising from a calm grey-blue sea at misty dawn with soft diffused cool light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd9rcK_rKW5mzMiFbHQdSKK-MQ29mAQxxic_fxA2NC4jdmaz-ZalTMshzz_mhenA5wcfrRrPUze0btYYH9wQ4NmaOyjZLjFELGnqytM2lXHRUxC9pNfVoWf77XGbX4GUkPzl3Sxzme3M_QpcQnU8Jao5g_QkTAVnSHgvDLzwS1oRVmMQ9ZxdF4_-hk82ByKXIA3fOWHoys3fMbW260stEwF1ZK3dYXZNhLMRuvVm4pt4eLNjPthyEQ9ayMLKVgF9KQbGeE7FJ8Nua2"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-5">
+<span class="text-[10px] font-bold text-white/70 uppercase tracking-widest mb-1">Visual Inspiration</span>
+<p class="text-white font-headline font-bold text-sm leading-tight">Architecture of Energy: The Offshore Pivot</p>
+</div>
+</div>
+</aside>
+</body></html>

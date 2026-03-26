@@ -62,5 +62,19 @@
   [
     "assistant",
     " To provide you with a detailed breakdown of the exact steps required for the task described in your context, I will outline the process based on the information provided in the text and figure references. Here's how it works:\n\n1. **Understanding the Task**: The task involves analyzing the encoding contribution of different modalities (text, video, audio) to a specific brain area or parcel for the first subject. This analysis should be done by masking the other two modalities and then color-coding based on the highest contribution from each modality.\n\n2. **Data Preparation**: \n   - Gather data related to text, video, and audio encoding contributions for the first subject. Ensure that this data is in a format that can be processed (e.g., CSV files with numerical values representing the strength of association between modalities and brain areas).\n\n3. **Modality Masking**:\n   - For each parcel or brain area, sequentially mask one modality while keeping the other two modalities intact. This means you will analyze three scenarios: text only, video only, and audio only.\n\n4. **Contribution Assessment**:\n   - Assess the contribution of each modality in isolation (text only, video only, audio only) by examining how strongly they are associated with the specific brain area or parcel when other modalities are masked out. This can be done using statistical models, correlation coefficients, or any method that quantifies association between data and a specific brain area.\n\n5. **Color-coding Based on Highest Contribution**:\n   - Assign colors to each modality based on which one has the highest contribution for each parcel. For example:\n     - If \"text only\" has the highest contribution, color code this parcel or brain area red.\n     - If \"video only\" has the highest contribution, color code it green.\n     - If \"audio only\" has the highest contribution, color code it blue.\n   - Alternatively, you might use a scale where higher contributions are represented by lighter shades and lower contributions by darker shades.\n\n6. **Visualization**:\n   - Map these colored codes onto Figure 5 to show how different brain areas or parcels interact with each modality based on their contribution scores. This will help in visualizing the interplay between modalities as suggested in your context.\n\n7. **Interpretation and Reporting**:\n   - Interpret the results, discussing any patterns observed between the interactions of text, video, and audio with the brain areas.\n   - Prepare a report or presentation that includes graphs or diagrams showing the color-coded map of modality contributions to each parcel/brain area.\n\n8. **Validation**:\n   - Validate your findings by comparing them with theoretical expectations based on neuroscience research about how these modalities typically interact in the human brain.\n\nBy following these steps, you should be able to break down and perform the task as described in your context. If you have specific data or need further assistance with a particular step, feel free to provide additional details!"
+  ],
+  [
+    "user",
+    "Tell me more about Sherlock Holmes"
+  ],
+  [
+    "assistant",
+    {
+      "title": "Tell me more about Sherlock Holmes",
+      "abstract": "Tell me more about Sherlock Holmes",
+      "key_findings": null,
+      "methodology": null,
+      "conclusions": null
+    }
   ]
 ]
