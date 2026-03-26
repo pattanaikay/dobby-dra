@@ -1,9 +1,9 @@
 {
-  "name": "frontend",
+  "name": "synthetica-research",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -11,7 +11,18 @@
   "dependencies": {
     "next": "16.2.1",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "@tanstack/react-query": "^5",
+    "@xyflow/react": "^12",
+    "framer-motion": "^12",
+    "lucide-react": "^0.500",
+    "react-dropzone": "^14",
+    "react-markdown": "^10",
+    "remark-gfm": "^4",
+    "rehype-highlight": "^7",
+    "date-fns": "^4",
+    "clsx": "^2",
+    "tailwind-merge": "^3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

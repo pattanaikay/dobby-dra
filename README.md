@@ -1,4 +1,4 @@
-# Dobby - Deep Research & Coding Assistant 🧙‍♂️
+# Dobby - Deep Research & Coding Assistant
 
 Synthetica Research (formerly Dobby) is an intelligent research and coding assistant powered by specialized agents for research paper analysis, code generation, technical writing, and data analysis. The project is being migrated from a Streamlit monolith to a modern **Next.js + FastAPI** architecture, leveraging the deepseek-coder-v2:16b model via Ollama.
 
