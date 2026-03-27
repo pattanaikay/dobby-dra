@@ -1,4 +1,4 @@
-# 4. Backend Implementation Prompt
+# Backend Implementation Prompt
 
 > **Use this prompt to instruct an AI coding assistant to build the FastAPI backend from scratch.**
 

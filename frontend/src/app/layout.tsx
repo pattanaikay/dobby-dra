@@ -1,12 +1,13 @@
 /**
  * Synthetica Research — Root Layout
- * Sets up fonts (Manrope + Inter), providers, and sidebar navigation.
+ * Manrope + Inter fonts, providers, sidebar + top nav shell.
  */
 import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
 import Sidebar from "@/components/layout/Sidebar";
+import TopNavBar from "@/components/layout/TopNavBar";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -33,11 +34,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
-      <body>
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+      </head>
+      <body suppressHydrationWarning>
         <QueryProvider>
           <div className="flex min-h-screen">
             <Sidebar />
-            <main className="flex-1 overflow-hidden">{children}</main>
+            <div className="flex-1 flex flex-col" style={{ marginLeft: "16rem" }}>
+              <TopNavBar />
+              <main className="flex-1 pt-16 overflow-hidden">{children}</main>
+            </div>
           </div>
         </QueryProvider>
       </body>

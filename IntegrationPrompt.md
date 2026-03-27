@@ -1,4 +1,4 @@
-# 5. Backend-Frontend Integration Prompt
+# Backend-Frontend Integration Prompt
 
 > **Use this prompt to instruct an AI coding assistant to wire the Next.js frontend to the FastAPI backend.**
 

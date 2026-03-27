@@ -1,85 +1,93 @@
 /**
- * Synthetica Research — Sidebar Navigation
- * Glassmorphism sidebar with mode selector and conversation list.
+ * Sidebar — Matches Stitch "The Curator" mockup.
+ * Teal accents, 4 nav items, Upload Document button with DropzoneUploader.
  */
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Search,
-  Code2,
-  PenTool,
-  BarChart3,
-  Compass,
-  Library,
-  Network,
-  Plus,
-  Settings,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import DropzoneUploader from "@/components/upload/DropzoneUploader";
 
 const NAV_ITEMS = [
-  { href: "/", label: "Dashboard", icon: Search },
-  { href: "/research", label: "Research", icon: Search },
-  { href: "/code", label: "Code", icon: Code2 },
-  { href: "/writing", label: "Writing", icon: PenTool },
-  { href: "/data", label: "Data", icon: BarChart3 },
-  { href: "/discovery", label: "Discovery", icon: Compass },
-  { href: "/library", label: "Library", icon: Library },
-  { href: "/graph", label: "Graph", icon: Network },
+  { href: "/research", label: "New Research", icon: "add_notes" },
+  { href: "/", label: "Library", icon: "auto_stories" },
+  { href: "/discovery", label: "History", icon: "history" },
+  { href: "/graph", label: "Collections", icon: "folder_open" },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const [uploaderOpen, setUploaderOpen] = useState(false);
 
   return (
-    <aside className="sidebar flex flex-col">
-      {/* Logo */}
-      <div className="mb-8">
-        <h1
-          className="text-xl font-extrabold tracking-tighter"
+    <>
+      <aside className="bg-slate-50 h-screen w-64 fixed left-0 top-0 border-r-0 flex flex-col py-8 px-6 z-40">
+        {/* Brand */}
+        <div className="mb-10">
+          <h1 className="text-xl font-bold tracking-tighter text-teal-700" style={{ fontFamily: "var(--font-display)" }}>
+            The Curator
+          </h1>
+          <p className="text-xs text-slate-500 font-medium" style={{ fontFamily: "var(--font-display)" }}>
+            Deep Research Agent
+          </p>
+        </div>
+
+        {/* Upload Document Button */}
+        <button
+          onClick={() => setUploaderOpen(true)}
+          className="mb-8 w-full py-3 px-4 bg-[var(--primary)] text-white rounded-xl font-bold text-sm transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2"
           style={{ fontFamily: "var(--font-display)" }}
         >
-          Synthetica
-        </h1>
-        <p className="text-meta text-sm mt-1">Research Assistant</p>
-      </div>
+          <span className="material-symbols-outlined text-lg">add_notes</span>
+          Upload Document
+        </button>
 
-      {/* Navigation */}
-      <nav className="flex-1 flex flex-col gap-1">
-        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
-          const isActive =
-            href === "/" ? pathname === "/" : pathname.startsWith(href);
-          return (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
-                isActive
-                  ? "bg-[var(--surface-container-lowest)] text-[var(--primary)] shadow-sm"
-                  : "text-[var(--on-surface-variant)] hover:bg-[var(--surface-container)]"
-              )}
-            >
-              <Icon size={18} />
-              {label}
-            </Link>
-          );
-        })}
-      </nav>
+        {/* Navigation */}
+        <nav className="flex-1 space-y-2">
+          {NAV_ITEMS.map(({ href, label, icon }) => {
+            const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 text-sm font-medium tracking-tight ${
+                  isActive
+                    ? "text-teal-700 font-bold border-r-2 border-teal-600 bg-slate-200/50"
+                    : "text-slate-500 hover:bg-slate-200/50"
+                }`}
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                <span className="material-symbols-outlined">{icon}</span>
+                {label}
+              </Link>
+            );
+          })}
+        </nav>
 
-      {/* New Chat Button */}
-      <button className="btn-primary flex items-center justify-center gap-2 w-full mt-4">
-        <Plus size={16} />
-        New Chat
-      </button>
+        {/* Bottom Links */}
+        <div className="pt-6 border-t border-slate-200/50 space-y-2">
+          <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-all text-sm font-medium"
+            style={{ fontFamily: "var(--font-display)" }}>
+            <span className="material-symbols-outlined">settings</span>
+            Settings
+          </a>
+          <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-all text-sm font-medium"
+            style={{ fontFamily: "var(--font-display)" }}>
+            <span className="material-symbols-outlined">help</span>
+            Help
+          </a>
+        </div>
+      </aside>
 
-      {/* Settings */}
-      <button className="btn-ghost flex items-center gap-3 mt-2 text-sm">
-        <Settings size={16} />
-        Settings
-      </button>
-    </aside>
+      {/* Upload Modal */}
+      <DropzoneUploader
+        isOpen={uploaderOpen}
+        onClose={() => setUploaderOpen(false)}
+        onUploadComplete={(result) => {
+          console.log("Upload complete:", result);
+        }}
+      />
+    </>
   );
 }

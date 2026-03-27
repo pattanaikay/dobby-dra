@@ -1,10 +1,10 @@
 /**
- * Research Library — Document collection browser
+ * Research Library — Document collection browser.
+ * Matches the "Recently Saved Documents" style from the dashboard mockup.
  */
 "use client";
 
 import { useEffect, useState } from "react";
-import { Library, FileText, Search } from "lucide-react";
 import { api } from "@/lib/api";
 
 interface LibraryDoc {
@@ -12,6 +12,16 @@ interface LibraryDoc {
   file_type: string;
   original_name: string;
 }
+
+const FILE_ICONS: Record<string, string> = {
+  pdf: "description",
+  docx: "article",
+  txt: "text_snippet",
+  py: "code",
+  js: "javascript",
+  ts: "code",
+  default: "insert_drive_file",
+};
 
 export default function LibraryPage() {
   const [documents, setDocuments] = useState<LibraryDoc[]>([]);
@@ -26,38 +36,57 @@ export default function LibraryPage() {
   );
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
-      <header className="mb-10 mt-8">
-        <div className="flex items-center gap-3 mb-4">
-          <Library size={28} style={{ color: "var(--primary)" }} />
-          <h1 className="text-3xl font-extrabold tracking-tighter"
-            style={{ fontFamily: "var(--font-display)" }}>
-            Research Library
-          </h1>
-        </div>
-        <p className="text-meta">Browse and filter your saved research documents.</p>
+    <div className="px-16 pb-16 pt-8 max-w-[1200px] mx-auto">
+      <header className="mb-12">
+        <h2 className="text-4xl font-extrabold tracking-tighter mb-3" style={{ fontFamily: "var(--font-display)" }}>
+          Research Library
+        </h2>
+        <p className="text-lg" style={{ color: "var(--secondary)", fontFamily: "var(--font-body)" }}>
+          Browse and filter your saved research documents.
+        </p>
       </header>
 
-      {/* Filter */}
-      <div className="relative mb-8">
-        <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2"
-          style={{ color: "var(--outline)" }} />
-        <input type="text" className="research-bar pl-12 !h-12"
+      {/* Search Filter */}
+      <div className="relative mb-10">
+        <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+        <input
+          type="text"
+          className="w-full bg-white border-none rounded-xl py-3 px-12 text-sm shadow-sm ring-1 ring-slate-100 focus:ring-2 focus:ring-[var(--primary)]/20 focus:outline-none transition-all"
           placeholder="Filter documents..."
-          value={filter} onChange={(e) => setFilter(e.target.value)} />
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          style={{ fontFamily: "var(--font-body)" }}
+        />
       </div>
 
-      {/* Documents Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.length > 0 ? filtered.map((doc, i) => (
-          <div key={i} className="research-card">
-            <FileText size={20} style={{ color: "var(--primary)" }} className="mb-3" />
-            <h3 className="font-semibold text-sm mb-1">{doc.original_name}</h3>
-            <span className="source-badge">{doc.file_type.toUpperCase()}</span>
-          </div>
-        )) : (
-          <div className="col-span-full text-center py-16">
-            <p className="text-meta text-lg">No documents yet. Upload files to get started.</p>
+      {/* Documents List */}
+      <div className="space-y-1">
+        {filtered.length > 0 ? (
+          filtered.map((doc, i) => (
+            <div key={i} className="flex items-center justify-between py-4 px-6 hover:bg-[var(--surface-container-low)] rounded-xl transition-colors cursor-pointer group">
+              <div className="flex items-center gap-6">
+                <span className="material-symbols-outlined text-slate-400 group-hover:text-[var(--primary)] transition-colors">
+                  {FILE_ICONS[doc.file_type] || FILE_ICONS.default}
+                </span>
+                <div>
+                  <h6 className="font-bold" style={{ fontFamily: "var(--font-display)" }}>{doc.original_name}</h6>
+                  <p className="text-xs" style={{ color: "var(--secondary)", fontFamily: "var(--font-body)" }}>
+                    {doc.file_type.toUpperCase()} • {doc.source}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button className="text-[var(--primary)] text-sm font-bold">Read</button>
+                <button className="material-symbols-outlined text-slate-400">bookmark</button>
+                <button className="material-symbols-outlined text-slate-400">more_horiz</button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-24">
+            <span className="material-symbols-outlined text-6xl mb-6" style={{ color: "var(--outline-variant)" }}>auto_stories</span>
+            <h3 className="text-xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>No documents yet</h3>
+            <p style={{ color: "var(--secondary)" }}>Upload research papers, code files, or documents to get started.</p>
           </div>
         )}
       </div>
