@@ -29,7 +29,7 @@ const DISCOVERY_PATHS = [
 
 export default function DiscoveryPage() {
   return (
-    <div className="px-16 pb-16 pt-8 min-h-screen">
+    <div className="px-10 pb-16 pt-10 min-h-screen">
       {/* Header Section */}
       <header className="max-w-4xl mb-16">
         <div

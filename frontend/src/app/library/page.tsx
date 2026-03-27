@@ -36,7 +36,7 @@ export default function LibraryPage() {
   );
 
   return (
-    <div className="px-16 pb-16 pt-8 max-w-[1200px] mx-auto">
+    <div className="px-10 pb-16 pt-10 max-w-[1200px] mx-auto">
       <header className="mb-12">
         <h2 className="text-4xl font-extrabold tracking-tighter mb-3" style={{ fontFamily: "var(--font-display)" }}>
           Research Library

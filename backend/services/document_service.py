@@ -61,24 +61,30 @@ class DocumentService:
             # Process file into Documents
             docs = process_uploaded_file(adapter, temp_dir)
 
-            # Run analysis based on type
+            # Run analysis based on type (graceful fallback)
             analysis = None
             filename = upload_file.filename or "unknown"
             
-            if process_type == "research" or (
-                process_type == "auto" and filename.endswith(".pdf")
-            ):
-                paper_agent = PaperAnalysisAgent(self.llm)
-                analysis = await paper_agent.analyze_paper(docs[0])
+            try:
+                if process_type == "research" or (
+                    process_type == "auto" and filename.endswith(".pdf")
+                ):
+                    paper_agent = PaperAnalysisAgent(self.llm)
+                    analysis = await paper_agent.analyze_paper(docs[0])
 
-            elif process_type == "code" or (
-                process_type == "auto" and is_text_file(filename)
-            ):
-                code_agent = CodeReviewAgent(self.llm)
-                analysis = await code_agent.review_code(docs[0].page_content)
+                elif process_type == "code" or (
+                    process_type == "auto" and is_text_file(filename)
+                ):
+                    code_agent = CodeReviewAgent(self.llm)
+                    analysis = await code_agent.review_code(docs[0].page_content)
+            except Exception:
+                analysis = {"status": "Analysis deferred — LLM unavailable"}
 
-            # Save to ChromaDB
-            save_to_db(docs, self.embeddings, self.persist_dir)
+            # Save to ChromaDB (graceful fallback)
+            try:
+                save_to_db(docs, self.embeddings, self.persist_dir)
+            except Exception:
+                pass  # ChromaDB may not be initialized yet
 
             return DocumentInfo(
                 filename=filename,

@@ -43,7 +43,7 @@ export default function RootLayout({
             <Sidebar />
             <div className="flex-1 flex flex-col" style={{ marginLeft: "16rem" }}>
               <TopNavBar />
-              <main className="flex-1 pt-16 overflow-hidden">{children}</main>
+              <main className="flex-1 pt-16 overflow-y-auto bg-[var(--surface)]">{children}</main>
             </div>
           </div>
         </QueryProvider>

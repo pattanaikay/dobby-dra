@@ -19,7 +19,7 @@ const SAVED_DOCS = [
 
 export default function DashboardPage() {
   return (
-    <section className="px-16 pb-16 pt-8 max-w-[1400px] mx-auto">
+    <section className="px-10 pb-16 pt-10 max-w-[1400px] mx-auto">
       {/* Hero Heading */}
       <div className="mb-16">
         <h2 className="text-5xl font-extrabold tracking-tighter mb-4" style={{ fontFamily: "var(--font-display)" }}>
