@@ -1,104 +1,87 @@
-/* ═══════════════════════════════════════════════════════════════════
-   Synthetica Research — "The Intellectual Canvas" Design System
-   Matches Stitch mockup CSS tokens exactly.
-   ═══════════════════════════════════════════════════════════════════ */
-
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms";
 
-/* ─── Design System Tokens ─── */
-:root {
-  /* Surface Hierarchy */
-  --surface: #f7f9fb;
-  --surface-dim: #d8dadc;
-  --surface-bright: #f7f9fb;
-  --surface-container-lowest: #ffffff;
-  --surface-container-low: #f2f4f6;
-  --surface-container: #eceef0;
-  --surface-container-high: #e6e8ea;
-  --surface-container-highest: #e0e3e5;
+@theme {
+  /* Colors - Precisely matched to mockup hex codes */
+  --color-primary: #0453cd;
+  --color-primary-container: #356ee7;
+  --color-on-primary: #ffffff;
+  --color-primary-fixed: #dae2ff;
+  --color-primary-fixed-dim: #b2c5ff;
+  
+  --color-secondary: #515f74;
+  --color-secondary-container: #d5e3fc;
+  --color-secondary-fixed: #d5e3fc;
+  --color-secondary-fixed-dim: #b9c7df;
+  
+  --color-tertiary: #924628;
+  --color-tertiary-container: #b05e3d;
+  --color-tertiary-fixed: #ffdbce;
+  --color-tertiary-fixed-dim: #ffb59a;
+  --color-on-tertiary-fixed-variant: #773215;
 
-  /* Primary (Electric Blue) */
-  --primary: #0453cd;
-  --primary-container: #356ee7;
-  --on-primary: #ffffff;
-  --on-primary-container: #fefcff;
-  --primary-fixed: #dae2ff;
-  --primary-fixed-dim: #b2c5ff;
-  --surface-tint: #0c56d0;
+  --color-surface: #f7f9fb;
+  --color-surface-dim: #d8dadc;
+  --color-surface-bright: #f7f9fb;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f2f4f6;
+  --color-surface-container: #eceef0;
+  --color-surface-container-high: #e6e8ea;
+  --color-surface-container-highest: #e0e3e5;
 
-  /* Secondary */
-  --secondary: #515f74;
-  --secondary-container: #d5e3fc;
-  --on-secondary: #ffffff;
-  --on-secondary-container: #57657a;
+  --color-on-surface: #191c1e;
+  --color-on-surface-variant: #3d4947;
+  --color-on-background: #191c1e;
+  --color-outline: #6d7a77;
+  --color-outline-variant: #bcc9c6;
 
-  /* Tertiary (Warm accent) */
-  --tertiary: #924628;
-  --tertiary-container: #b05e3d;
-  --tertiary-fixed: #ffdbce;
-  --on-tertiary: #ffffff;
-  --on-tertiary-fixed-variant: #773215;
+  --color-brand-teal-700: #0f766e;
+  --color-brand-teal-600: #0d9488;
+  --color-brand-teal-400: #2dd4bf;
 
-  /* Error */
-  --error: #ba1a1a;
-  --error-container: #ffdad6;
-  --on-error: #ffffff;
-
-  /* Text */
-  --on-surface: #191c1e;
-  --on-surface-variant: #3d4947;
-  --on-background: #191c1e;
-  --inverse-surface: #2d3133;
-  --inverse-on-surface: #eff1f3;
-
-  /* Borders */
-  --outline: #6d7a77;
-  --outline-variant: #bcc9c6;
-  --ghost-border: rgba(188, 201, 198, 0.15);
-
-  /* Motion */
-  --ease-deep: cubic-bezier(0.2, 0, 0, 1);
-  --transition-default: all 0.3s var(--ease-deep);
-
-  /* Typography */
-  --font-display: "Manrope", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* Fonts - Map to Next.js font variables */
+  --font-headline: var(--font-headline), ui-sans-serif, system-ui;
+  --font-body: var(--font-body), ui-sans-serif, system-ui;
+  
+  /* Radii - Mockup specific */
+  --radius-DEFAULT: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-4xl: 2rem;
+  
+  /* Shadows */
+  --shadow-mockup: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-glass: 0 4px 30px rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.04);
 }
 
-/* ─── Base Reset ─── */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  :root {
+    /* Base colors for non-tailwind contexts */
+    --primary: #0453cd;
+    --secondary: #515f74;
+    --surface: #f7f9fb;
+    --background: #f7f9fb;
+    --on-background: #191c1e;
+  }
+
+  body {
+    @apply bg-surface text-on-surface antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+    @apply font-extrabold tracking-tighter;
+  }
 }
 
-html {
-  font-family: var(--font-body);
-  color: var(--on-surface);
-  background: var(--surface);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  min-height: 100vh;
-  line-height: 1.6;
-  background-color: #f7f9fb;
-  color: #191c1e;
-}
-
-/* ─── Typography ─── */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--on-surface);
-}
-
-/* ─── Material Symbols ─── */
+/* Material Symbols Helper */
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  vertical-align: middle;
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -106,9 +89,10 @@ h1, h2, h3, h4, h5, h6 {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  vertical-align: middle;
 }
 
-/* ─── Glassmorphism ─── */
+/* Glassmorphism */
 .glass-nav {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
@@ -121,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-backdrop-filter: blur(20px);
 }
 
-/* ─── AI Pulse Animation (Shimmer gradient from mockup) ─── */
+/* AI Pulse Animation */
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
@@ -133,72 +117,11 @@ h1, h2, h3, h4, h5, h6 {
   animation: shimmer 2s infinite linear;
 }
 
-/* ─── AI Loading Bar (Full width variant) ─── */
-.ai-loading {
-  background: linear-gradient(90deg, var(--primary-fixed), var(--primary-container), var(--primary-fixed));
-  background-size: 200% auto;
-  animation: shimmer 2s ease infinite;
-  height: 3px;
-  border-radius: 9999px;
-}
-
-/* ─── Scrollbar ─── */
+/* Scrollbar Utils */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--outline-variant);
-  border-radius: 9999px;
-}
-
-/* ─── Button Styles ─── */
-.btn-primary {
-  background: var(--primary);
-  color: var(--on-primary);
-  border-radius: 0.75rem;
-  padding: 0.75rem 1.5rem;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-  transition: var(--transition-default);
-  font-family: var(--font-display);
-}
-.btn-primary:hover { opacity: 0.9; }
-.btn-primary:active { transform: scale(0.95); }
-
-/* ─── Research Bar ─── */
-.research-bar {
-  background: var(--surface-container-lowest);
-  border-radius: 1rem;
-  border: none;
-  padding: 0 1.5rem;
-  font-size: 0.9375rem;
-  font-family: var(--font-body);
-  color: var(--on-surface);
-  width: 100%;
-  transition: var(--transition-default);
-}
-.research-bar:focus {
-  outline: none;
-  box-shadow: 0 0 0 1px rgba(12, 86, 208, 0.2);
-}
-.research-bar::placeholder {
-  color: #94a3b8;
-}
-
-/* ─── Selection ─── */
-::selection {
-  background: var(--primary-fixed);
-  color: var(--on-surface);
 }

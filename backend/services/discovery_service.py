@@ -4,6 +4,7 @@ Source: Design.md §3.C
 """
 
 import random
+import asyncio
 from typing import List
 
 from backend.models.graph import TopicCard
@@ -50,7 +51,7 @@ class DiscoveryService:
                 "important theories",
             ]
             query = random.choice(seed_queries)
-            results = query_db(query, self.embeddings, self.persist_dir)
+            results = await asyncio.to_thread(query_db, query, self.embeddings, self.persist_dir)
 
             if results and len(results) >= count:
                 selected = random.sample(results, count)
@@ -66,8 +67,8 @@ class DiscoveryService:
                         f"{doc.page_content[:500]}\n\nDescription:"
                     )
 
-                    title_response = self.llm.invoke(title_prompt)
-                    desc_response = self.llm.invoke(desc_prompt)
+                    title_response = await self.llm.ainvoke(title_prompt)
+                    desc_response = await self.llm.ainvoke(desc_prompt)
 
                     topics.append(
                         TopicCard(

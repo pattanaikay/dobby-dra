@@ -6,6 +6,7 @@ Adapts: utils/file_processing.py for FastAPI UploadFile
 
 import os
 import tempfile
+import asyncio
 from typing import Optional, Dict, Any, List
 from fastapi import UploadFile
 
@@ -82,7 +83,7 @@ class DocumentService:
 
             # Save to ChromaDB (graceful fallback)
             try:
-                save_to_db(docs, self.embeddings, self.persist_dir)
+                await asyncio.to_thread(save_to_db, docs, self.embeddings, self.persist_dir)
             except Exception:
                 pass  # ChromaDB may not be initialized yet
 
@@ -101,7 +102,7 @@ class DocumentService:
                 error=str(e),
             )
 
-    async def list_documents(self) -> List[Dict[str, Any]]:
+    async def list_documents(self) -> List[DocumentInfo]:
         """
         List all documents stored in ChromaDB.
         Used by the Research Library page.
@@ -124,11 +125,11 @@ class DocumentService:
                 if source not in seen_sources:
                     seen_sources.add(source)
                     documents.append(
-                        {
-                            "source": source,
-                            "file_type": metadata.get("file_type", ""),
-                            "original_name": metadata.get("original_name", source),
-                        }
+                        DocumentInfo(
+                            filename=metadata.get("original_name", source),
+                            status="complete",
+                            file_type=metadata.get("file_type", ""),
+                        )
                     )
 
             return documents

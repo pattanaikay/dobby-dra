@@ -12,7 +12,6 @@ import type {
   GraphData,
   GraphExpandRequest,
   RepoAnalysisRequest,
-  SSEEvent,
   TopicCard,
   WebContentRequest,
 } from "@/types";

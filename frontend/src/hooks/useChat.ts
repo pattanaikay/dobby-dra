@@ -6,7 +6,7 @@
 
 import { useState, useCallback } from "react";
 import { api } from "@/lib/api";
-import type { ChatMessage, WorkspaceMode, SSEEvent } from "@/types";
+import type { ChatMessage, WorkspaceMode } from "@/types";
 
 export function useChat(mode: WorkspaceMode, conversationId: string = "main") {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -74,7 +74,7 @@ export function useChat(mode: WorkspaceMode, conversationId: string = "main") {
             );
           }
         }
-      } catch (error) {
+      } catch {
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === assistantMsg.id

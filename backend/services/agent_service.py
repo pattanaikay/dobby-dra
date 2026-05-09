@@ -26,11 +26,12 @@ class AgentService:
         self.persist_dir = persist_dir
         self.code_dir = code_dir
 
-    def _get_rag_context(self, query: str) -> str:
+    async def _get_rag_context(self, query: str) -> str:
         """Get RAG context from ChromaDB, returning empty string on failure."""
         try:
             from utils.dbutils import query_db
-            results = query_db(query, self.embeddings, self.persist_dir)
+            # Use to_thread to run sync query_db without blocking
+            results = await asyncio.to_thread(query_db, query, self.embeddings, self.persist_dir)
             return "\n".join([r.page_content for r in results]) if results else ""
         except Exception:
             # ChromaDB collection may not exist yet
@@ -54,7 +55,7 @@ class AgentService:
             conversation_id: ID of the conversation for history tracking
         """
         # Get RAG context from ChromaDB (graceful fallback)
-        context = self._get_rag_context(query)
+        context = await self._get_rag_context(query)
 
         # Build mode-specific prompt
         prompt = self._build_prompt(query, context, mode)
@@ -105,14 +106,14 @@ class AgentService:
         Returns:
             Tuple of (response_text, file_path)
         """
-        context = self._get_rag_context(query)
+        context = await self._get_rag_context(query)
 
         prompt = (
             f"You are a coding assistant. Here is some code:\n{context}\n"
             f"User request: {query}\n"
             f"Provide the modified code ONLY."
         )
-        response = self.llm.invoke(prompt)
+        response = await self.llm.ainvoke(prompt)
         content = response.content
         fname = log_code_change(query, content, self.code_dir)
         return content, fname

@@ -14,45 +14,36 @@ export interface ConceptNodeData {
 
 export default function ConceptNode({ data }: NodeProps) {
   const nodeData = data as ConceptNodeData;
-  const categoryColors: Record<string, string> = {
-    physics: "var(--primary)",
-    biology: "#22c55e",
-    history: "var(--tertiary)",
-    philosophy: "#8b5cf6",
-    default: "var(--secondary)",
-  };
-  const color = categoryColors[nodeData.category] || categoryColors.default;
+  const isCentral = nodeData.weight > 7;
 
   return (
     <>
-      <Handle type="target" position={Position.Top} style={{ background: color, border: "none", width: 8, height: 8 }} />
+      <Handle type="target" position={Position.Top} className="!bg-brand-teal-600 !border-none !w-2 !h-2" />
       <div
-        className="px-5 py-4 rounded-2xl shadow-lg cursor-pointer transition-all hover:scale-105"
+        className={`px-6 py-5 rounded-xl bg-white transition-all hover:scale-105 border border-slate-100/50 ${
+          isCentral ? "ring-2 ring-brand-teal-600 ring-offset-2 shadow-lg" : "shadow-sm"
+        }`}
         style={{
-          background: "rgba(255, 255, 255, 0.85)",
-          backdropFilter: "blur(12px)",
-          border: `1px solid ${color}33`,
-          minWidth: 160,
+          minWidth: 180,
         }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: `${color}15` }}
+            className="w-10 h-10 rounded-lg flex items-center justify-center bg-brand-teal-400/10"
           >
-            <span className="material-symbols-outlined text-sm" style={{ color }}>{nodeData.icon}</span>
+            <span className="material-symbols-outlined text-brand-teal-700 text-xl">{nodeData.icon}</span>
           </div>
           <div>
-            <p className="font-bold text-sm" style={{ fontFamily: "var(--font-display)", color: "var(--on-surface)" }}>
+            <p className="font-extrabold text-sm tracking-tighter text-slate-900 font-headline">
               {nodeData.label}
             </p>
-            <p className="text-[10px]" style={{ color: "var(--secondary)" }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 font-headline">
               {nodeData.weight} connections
             </p>
           </div>
         </div>
       </div>
-      <Handle type="source" position={Position.Bottom} style={{ background: color, border: "none", width: 8, height: 8 }} />
+      <Handle type="source" position={Position.Bottom} className="!bg-brand-teal-600 !border-none !w-2 !h-2" />
     </>
   );
 }

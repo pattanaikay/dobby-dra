@@ -4,12 +4,11 @@
  */
 "use client";
 
-import { useCallback, useMemo } from "react";
+import { useMemo } from "react";
 import {
   ReactFlow,
   Background,
   Controls,
-  MiniMap,
   useNodesState,
   useEdgesState,
   type Node,
@@ -52,21 +51,13 @@ export default function GraphPage() {
   const proOptions = { hideAttribution: true };
 
   return (
-    <div className="h-[calc(100vh-4rem)] relative">
+    <main className="ml-0 h-[calc(100vh-4rem)] relative overflow-hidden bg-surface">
       {/* Header Overlay */}
-      <div className="absolute top-6 left-8 z-10">
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl px-6 py-4 shadow-lg">
-          <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined text-[var(--primary)]">hub</span>
-            <div>
-              <h1 className="text-lg font-bold tracking-tight" style={{ fontFamily: "var(--font-display)" }}>
-                Knowledge Graph
-              </h1>
-              <p className="text-xs" style={{ color: "var(--secondary)" }}>
-                {nodes.length} concepts • {edges.length} connections
-              </p>
-            </div>
-          </div>
+      <div className="absolute top-6 left-8 z-50">
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl px-6 py-4 shadow-mockup flex items-center gap-4">
+          <span className="text-lg font-extrabold text-brand-teal-700 font-headline">The Intellectual Canvas</span>
+          <div className="h-4 w-[1px] bg-slate-200"></div>
+          <span className="text-xs font-medium text-slate-400 uppercase tracking-widest">Knowledge Graph</span>
         </div>
       </div>
 
@@ -84,35 +75,74 @@ export default function GraphPage() {
       >
         <Background variant={BackgroundVariant.Dots} gap={24} size={1} color="var(--outline-variant)" />
         <Controls
-          position="bottom-right"
-          style={{ background: "white", borderRadius: "0.75rem", border: "none", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
-        />
-        <MiniMap
-          position="top-right"
-          style={{ background: "rgba(255,255,255,0.85)", borderRadius: "0.75rem", border: "none", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}
-          nodeColor={(n) => {
-            const cat = (n.data as { category?: string })?.category;
-            if (cat === "physics") return "#0453cd";
-            if (cat === "biology") return "#22c55e";
-            if (cat === "history") return "#924628";
-            return "#515f74";
+          position="bottom-left"
+          className="ml-8 mb-8"
+          style={{ 
+            background: "rgba(255, 255, 255, 0.7)", 
+            backdropFilter: "blur(20px)",
+            borderRadius: "9999px", 
+            border: "1px solid rgba(255, 255, 255, 0.5)", 
+            boxShadow: "0 12px 40px rgba(0, 0, 0, 0.1)",
+            padding: "4px"
           }}
         />
       </ReactFlow>
 
-      {/* Floating Info Panel */}
-      <div className="absolute bottom-8 left-8 z-10">
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl px-6 py-4 shadow-lg max-w-sm">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="material-symbols-outlined text-sm" style={{ color: "var(--primary)" }}>auto_awesome</span>
-            <span className="text-[10px] font-bold uppercase tracking-widest" style={{ color: "var(--secondary)" }}>AI Insight</span>
+      {/* Right Side Panel: Node Details (Entity Profile from Mockup) */}
+      <aside className="absolute top-8 right-8 bottom-8 w-80 glass-panel rounded-3xl shadow-2xl border border-white/40 flex flex-col overflow-hidden z-40">
+        <div className="p-6 pb-0">
+          <div className="flex items-center justify-between mb-6">
+            <span className="px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-[10px] font-bold tracking-widest uppercase">Entity Profile</span>
+            <button className="text-slate-400 hover:text-slate-900 transition-all">
+              <span className="material-symbols-outlined">close</span>
+            </button>
           </div>
-          <p className="text-sm leading-relaxed" style={{ color: "var(--on-surface-variant)" }}>
-            Strong cross-domain link detected between <strong>Magnetoreception</strong> and <strong>Maritime Navigation</strong> — 
-            quantum biological mechanisms may explain ancient wayfinding techniques.
-          </p>
+          <h2 className="text-2xl font-extrabold font-headline text-on-background leading-tight mb-2">Helen of Troy</h2>
+          <p className="text-sm text-slate-500 font-medium leading-relaxed mb-6">In Greek mythology, said to have been the most beautiful woman in the world.</p>
         </div>
-      </div>
-    </div>
+        <div className="flex-1 overflow-y-auto px-6 space-y-8 pb-8 scrollbar-hide">
+          {/* Historical Snippets */}
+          <section>
+            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+              <span className="material-symbols-outlined text-sm">history_edu</span>
+              Historical Context
+            </h4>
+            <div className="space-y-4">
+              <div className="p-4 bg-white/50 rounded-2xl border border-slate-100 hover:bg-white transition-all">
+                <p className="text-xs text-on-surface leading-relaxed italic">&quot;The face that launched a thousand ships and burnt the topless towers of Ilium.&quot;</p>
+                <span className="block mt-2 text-[10px] font-bold text-slate-400">— Christopher Marlowe</span>
+              </div>
+            </div>
+          </section>
+          {/* Linked Sources */}
+          <section>
+            <h4 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4">Referenced Collections</h4>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 group cursor-pointer">
+                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-primary-container group-hover:text-white transition-all">
+                  <span className="material-symbols-outlined text-lg">article</span>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-on-surface">Homers Iliad (Analysis)</p>
+                  <p className="text-[10px] text-slate-400">PDF • 12.4 MB</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          {/* Action Button */}
+          <div className="pt-4">
+            <button className="w-full bg-on-background text-white py-3 rounded-2xl font-bold text-xs flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+              <span className="material-symbols-outlined text-sm">edit_note</span>
+              Open Research Workspace
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* Asymmetric Background Elements */}
+      <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-1/2 -right-48 w-[600px] h-[600px] bg-teal-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+    </main>
   );
 }
+

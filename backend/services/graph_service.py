@@ -5,6 +5,7 @@ New feature for the Knowledge Graph View (Design.md §3.D)
 
 import uuid
 import json
+import asyncio
 from typing import List
 
 from backend.models.graph import GraphNode, GraphEdge, GraphResponse
@@ -66,7 +67,7 @@ class GraphService:
             return GraphResponse(nodes=[], edges=[])
 
         # Query DB for related content
-        results = query_db(target_node.label, self.embeddings, self.persist_dir)
+        results = await asyncio.to_thread(query_db, target_node.label, self.embeddings, self.persist_dir)
         context = "\n".join([r.page_content for r in results])
 
         # Extract entities using LLM
@@ -83,7 +84,7 @@ Example: [{{"label": "Neural Networks", "type": "concept"}}, {{"label": "Backpro
 JSON:"""
 
         try:
-            response = self.llm.invoke(prompt)
+            response = await self.llm.ainvoke(prompt)
             # Parse LLM response
             entities = json.loads(response.content.strip())
         except (json.JSONDecodeError, Exception):
@@ -121,7 +122,7 @@ JSON:"""
         """Build an initial seed graph from ChromaDB content."""
         # Query for general concepts
         try:
-            results = query_db("main research topics and concepts", self.embeddings, self.persist_dir)
+            results = await asyncio.to_thread(query_db, "main research topics and concepts", self.embeddings, self.persist_dir)
             if not results:
                 return [GraphNode(id="root", label="Research", type="concept")], []
 

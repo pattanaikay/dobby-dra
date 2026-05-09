@@ -1,6 +1,5 @@
 /**
- * Sidebar — Matches Stitch "The Curator" mockup.
- * Teal accents, 4 nav items, Upload Document button with DropzoneUploader.
+ * Sidebar — Matches "The Curator" mockup.
  */
 "use client";
 
@@ -10,7 +9,7 @@ import { usePathname } from "next/navigation";
 import DropzoneUploader from "@/components/upload/DropzoneUploader";
 
 const NAV_ITEMS = [
-  { href: "/research", label: "New Research", icon: "add_notes" },
+  { href: "/research", label: "New Research", icon: "explore" },
   { href: "/", label: "Library", icon: "auto_stories" },
   { href: "/discovery", label: "History", icon: "history" },
   { href: "/graph", label: "Collections", icon: "folder_open" },
@@ -22,25 +21,24 @@ export default function Sidebar() {
 
   return (
     <>
-      <aside className="bg-slate-50 h-screen w-64 fixed left-0 top-0 border-r-0 flex flex-col py-8 px-6 z-40">
+      <aside className="bg-slate-50 h-screen w-64 fixed left-0 top-0 border-none flex flex-col py-8 px-6 z-50">
         {/* Brand */}
-        <div className="mb-10">
-          <h1 className="text-xl font-bold tracking-tighter text-teal-700" style={{ fontFamily: "var(--font-display)" }}>
+        <div className="mb-12">
+          <h1 className="text-xl font-bold tracking-tighter text-brand-teal-700 font-headline">
             The Curator
           </h1>
-          <p className="text-xs text-slate-500 font-medium" style={{ fontFamily: "var(--font-display)" }}>
+          <p className="font-headline text-sm font-medium tracking-tight text-slate-500">
             Deep Research Agent
           </p>
         </div>
 
-        {/* Upload Document Button */}
+        {/* Upload Document Button — Primary Blue */}
         <button
           onClick={() => setUploaderOpen(true)}
-          className="mb-8 w-full py-3 px-4 bg-[var(--primary)] text-white rounded-xl font-bold text-sm transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2"
-          style={{ fontFamily: "var(--font-display)" }}
+          className="w-full flex items-center space-x-3 p-3 rounded-xl bg-primary text-on-primary font-bold shadow-sm mb-6 transition-all active:opacity-80"
         >
-          <span className="material-symbols-outlined text-lg">add_notes</span>
-          Upload Document
+          <span className="material-symbols-outlined">add_notes</span>
+          <span className="font-headline text-sm font-medium tracking-tight">Upload Document</span>
         </button>
 
         {/* Navigation */}
@@ -51,31 +49,28 @@ export default function Sidebar() {
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors duration-200 text-sm font-medium tracking-tight ${
+                className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-200 ${
                   isActive
-                    ? "text-teal-700 font-bold border-r-2 border-teal-600 bg-slate-200/50"
-                    : "text-slate-500 hover:bg-slate-200/50"
+                    ? "text-brand-teal-700 font-bold border-r-2 border-brand-teal-600 bg-slate-200/50"
+                    : "text-slate-500 hover:text-slate-900 hover:bg-slate-200/50"
                 }`}
-                style={{ fontFamily: "var(--font-display)" }}
               >
                 <span className="material-symbols-outlined">{icon}</span>
-                {label}
+                <span className="font-headline text-sm font-medium tracking-tight">{label}</span>
               </Link>
             );
           })}
         </nav>
 
         {/* Bottom Links */}
-        <div className="pt-6 border-t border-slate-200/50 space-y-2">
-          <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-all text-sm font-medium"
-            style={{ fontFamily: "var(--font-display)" }}>
+        <div className="mt-auto pt-8 space-y-2">
+          <a href="#" className="flex items-center space-x-3 p-3 rounded-xl text-slate-500 hover:bg-slate-200/50 transition-colors duration-200">
             <span className="material-symbols-outlined">settings</span>
-            Settings
+            <span className="font-headline text-sm font-medium tracking-tight">Settings</span>
           </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-500 hover:bg-slate-200/50 transition-all text-sm font-medium"
-            style={{ fontFamily: "var(--font-display)" }}>
+          <a href="#" className="flex items-center space-x-3 p-3 rounded-xl text-slate-500 hover:bg-slate-200/50 transition-colors duration-200">
             <span className="material-symbols-outlined">help</span>
-            Help
+            <span className="font-headline text-sm font-medium tracking-tight">Help</span>
           </a>
         </div>
       </aside>

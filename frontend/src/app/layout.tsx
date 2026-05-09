@@ -1,6 +1,5 @@
 /**
  * Synthetica Research — Root Layout
- * Manrope + Inter fonts, providers, sidebar + top nav shell.
  */
 import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
@@ -11,7 +10,7 @@ import TopNavBar from "@/components/layout/TopNavBar";
 
 const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-headline",
   display: "swap",
 });
 
@@ -23,8 +22,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Synthetica Research",
-  description:
-    "An intelligent deep research assistant powered by specialized AI agents",
+  description: "An intelligent deep research assistant powered by specialized AI agents",
 };
 
 export default function RootLayout({
@@ -37,13 +35,15 @@ export default function RootLayout({
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
-      <body suppressHydrationWarning>
+      <body suppressHydrationWarning className="bg-surface">
         <QueryProvider>
           <div className="flex min-h-screen">
             <Sidebar />
-            <div className="flex-1 flex flex-col" style={{ marginLeft: "16rem" }}>
+            <div className="flex-1 flex flex-col ml-64 relative">
               <TopNavBar />
-              <main className="flex-1 pt-16 overflow-y-auto bg-[var(--surface)]">{children}</main>
+              <main className="flex-1 min-h-screen pt-16 overflow-y-auto">
+                {children}
+              </main>
             </div>
           </div>
         </QueryProvider>

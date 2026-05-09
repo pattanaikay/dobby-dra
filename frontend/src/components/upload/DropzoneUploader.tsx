@@ -31,11 +31,13 @@ export default function DropzoneUploader({ isOpen, onClose, onUploadComplete }: 
           setProgress((prev) => Math.min(prev + 10, 90));
         }, 200);
 
-        const result = await api.uploadDocument(file);
+        const result = await api.uploadDocuments([file], "auto");
         clearInterval(progressInterval);
         setProgress(100);
         setUploadedFiles((prev) => [...prev, file.name]);
-        onUploadComplete?.(result as { filename: string; analysis: string });
+        if (result.length > 0) {
+          onUploadComplete?.({ filename: result[0].filename, analysis: "" });
+        }
       } catch {
         // Error handled silently
       }
@@ -61,22 +63,22 @@ export default function DropzoneUploader({ isOpen, onClose, onUploadComplete }: 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-md" onClick={onClose}></div>
 
-      {/* Modal */}
-      <div className="relative bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl p-10 max-w-lg w-full mx-4 z-10">
+      {/* Modal - Following "Glass & Gradient" Rule */}
+      <div className="relative bg-surface-container-lowest/80 backdrop-blur-[20px] rounded-3xl p-10 max-w-lg w-full z-10 shadow-2xl">
         {/* Close */}
-        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition-colors">
+        <button onClick={onClose} className="absolute top-6 right-6 text-secondary hover:text-on-surface transition-colors">
           <span className="material-symbols-outlined">close</span>
         </button>
 
         {/* Header */}
-        <h3 className="text-2xl font-extrabold tracking-tighter mb-2" style={{ fontFamily: "var(--font-display)" }}>
+        <h3 className="text-2xl font-extrabold tracking-tighter mb-2 font-headline">
           Upload Documents
         </h3>
-        <p className="text-sm mb-8" style={{ color: "var(--secondary)" }}>
+        <p className="text-sm mb-8 text-secondary font-body">
           Drop your research papers, code files, or documents here.
         </p>
 
@@ -85,8 +87,8 @@ export default function DropzoneUploader({ isOpen, onClose, onUploadComplete }: 
           {...getRootProps()}
           className={`border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all ${
             isDragActive
-              ? "border-[var(--primary)] bg-[var(--primary-fixed)]/10"
-              : "border-[var(--outline-variant)] hover:border-[var(--primary)]/50"
+              ? "border-primary bg-primary-fixed/20"
+              : "border-outline-variant/30 hover:bg-surface-container-low"
           }`}
         >
           <input {...getInputProps()} />
@@ -96,10 +98,10 @@ export default function DropzoneUploader({ isOpen, onClose, onUploadComplete }: 
           >
             cloud_upload
           </span>
-          <p className="font-bold mb-1" style={{ fontFamily: "var(--font-display)" }}>
+          <p className="font-bold mb-1 font-headline">
             {isDragActive ? "Drop files here" : "Drag & drop files"}
           </p>
-          <p className="text-xs" style={{ color: "var(--secondary)" }}>
+          <p className="text-xs text-secondary font-body">
             PDF, DOCX, TXT, Python, JavaScript, TypeScript
           </p>
         </div>
@@ -108,10 +110,10 @@ export default function DropzoneUploader({ isOpen, onClose, onUploadComplete }: 
         {uploading && (
           <div className="mt-6">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold" style={{ color: "var(--secondary)" }}>Uploading...</span>
-              <span className="text-xs font-bold" style={{ color: "var(--primary)" }}>{progress}%</span>
+              <span className="text-xs font-bold text-secondary font-headline">Uploading...</span>
+              <span className="text-xs font-bold text-primary font-headline">{progress}%</span>
             </div>
-            <div className="w-full h-1.5 bg-[var(--surface-container-high)] rounded-full overflow-hidden">
+            <div className="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
               <div className="h-full ai-pulse rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
             </div>
           </div>
@@ -121,9 +123,9 @@ export default function DropzoneUploader({ isOpen, onClose, onUploadComplete }: 
         {uploadedFiles.length > 0 && (
           <div className="mt-6 space-y-2">
             {uploadedFiles.map((name, i) => (
-              <div key={i} className="flex items-center gap-3 py-2 px-4 bg-[var(--surface-container-low)] rounded-xl">
-                <span className="material-symbols-outlined text-sm" style={{ color: "#22c55e" }}>check_circle</span>
-                <span className="text-sm font-medium">{name}</span>
+              <div key={i} className="flex items-center gap-3 py-2 px-4 bg-surface-container-low rounded-xl">
+                <span className="material-symbols-outlined text-sm text-primary">check_circle</span>
+                <span className="text-sm font-medium font-body">{name}</span>
               </div>
             ))}
           </div>

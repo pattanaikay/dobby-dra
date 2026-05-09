@@ -5,6 +5,7 @@ Replaces: main.py L221-263 (repository analysis tab)
 
 import json
 import os
+import asyncio
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
@@ -47,7 +48,7 @@ async def analyze_repository(request: RepoAnalysisRequest):
             review = await code_review_agent.review_code(combined_code)
 
             # Save to DB
-            save_to_db(docs, embeddings, PERSIST_DIR)
+            await asyncio.to_thread(save_to_db, docs, embeddings, PERSIST_DIR)
 
             yield f"data: {json.dumps({'type': 'result', 'content': review})}\n\n"
             yield f"data: {json.dumps({'type': 'done'})}\n\n"

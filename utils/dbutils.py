@@ -8,43 +8,46 @@ vector embeddings for semantic similarity search.
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
+from typing import List, Optional
+from langchain_core.documents import Document
 
-def save_to_db(docs: list, embeddings, persist_dir: str):
+# Global cache for Chroma instance to avoid re-initializing
+_DB_INSTANCE: Optional[Chroma] = None
+
+def get_db(embeddings, persist_dir: str) -> Chroma:
+    """Get or initialize the Chroma DB singleton."""
+    global _DB_INSTANCE
+    if _DB_INSTANCE is None:
+        _DB_INSTANCE = Chroma(
+            persist_directory=persist_dir, 
+            embedding_function=embeddings
+        )
+    return _DB_INSTANCE
+
+def save_to_db(docs: List[Document], embeddings, persist_dir: str):
     """
     Saves documents to the vector database after chunking them.
-    
-    Args:
-        docs (list): List of LangChain Document objects to save
-        embeddings: Embedding model to convert text to vectors
-        persist_dir (str): Directory to store the vector database
-        
-    Returns:
-        Chroma: The Chroma DB instance
-        
-    Note:
-        - Chunks documents into 500-character pieces with 50-char overlap
-        - Persists the database to disk after adding documents
     """
+    global _DB_INSTANCE
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     chunks = splitter.split_documents(docs)
-    db = Chroma.from_documents(chunks, embeddings, persist_directory=persist_dir)
-    db.persist()
-    return db
+    
+    # from_documents initializes a NEW collection usually, 
+    # but we want to add to the existing one if it exists.
+    if _DB_INSTANCE is None:
+        _DB_INSTANCE = Chroma.from_documents(
+            chunks, 
+            embeddings, 
+            persist_directory=persist_dir
+        )
+    else:
+        _DB_INSTANCE.add_documents(chunks)
+    
+    return _DB_INSTANCE
 
-def query_db(query: str, embeddings, persist_dir: str) -> list:
+def query_db(query: str, embeddings, persist_dir: str, k: int = 3) -> List[Document]:
     """
     Queries the vector database for similar documents.
-    
-    Args:
-        query (str): The query text to search for
-        embeddings: Embedding model to convert query to vector
-        persist_dir (str): Directory where the vector database is stored
-        
-    Returns:
-        list: Top 3 most similar documents from the database
-        
-    Note:
-        Uses cosine similarity to find the most relevant documents
     """
-    db = Chroma(persist_directory=persist_dir, embedding_function=embeddings)
-    return db.similarity_search(query, k=3)
+    db = get_db(embeddings, persist_dir)
+    return db.similarity_search(query, k=k)
